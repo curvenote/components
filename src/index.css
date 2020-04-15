@@ -13,11 +13,11 @@ body.ink-drag-horz{
   cursor: col-resize;
 }
 ink-dynamic {
-  color: var(--mdc-theme-secondary);
-  border-bottom: 1px dashed var(--mdc-theme-secondary);
+  color: var(--mdc-theme-secondary, #46F);
+  border-bottom: 1px dashed var(--mdc-theme-secondary, #46F);
 }
 ink-action {
   cursor: pointer;
-  color: var(--mdc-theme-secondary);
-  border-bottom: 1px solid var(--mdc-theme-secondary);
+  color: var(--mdc-theme-secondary, #46F);
+  border-bottom: 1px solid var(--mdc-theme-secondary, #46F);
 }
