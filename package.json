@@ -20,7 +20,7 @@
     "lint": "eslint src/**.ts -c .eslintrc.json",
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build-dev": "webpack --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js; tsc; cp src/index.css dist/ink.css;"
+    "build": "webpack --config webpack.prod.js; tsc; cp src/index.css dist/ink.css; rm -rf dist/src"
   },
   "repository": {
     "type": "git",

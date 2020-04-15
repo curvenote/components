@@ -1,7 +1,7 @@
 # @iooxa/ink-basic
 
-[![Ink-Basic on npm](https://img.shields.io/npm/v/@iooxa/runtime.svg)](https://www.npmjs.com/package/@iooxa/ink-basic)
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ink-components/ink-components/blob/master/LICENSE)
+[![Ink-Basic on npm](https://img.shields.io/npm/v/@iooxa/ink-basic.svg)](https://www.npmjs.com/package/@iooxa/ink-basic)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/iooxa/ink-basic/blob/master/LICENSE)
 
 The goal of ink-basic is to provide web-components for interactive scientific writing, reactive documents and [explorable explanations](https://explorabl.es). This library provides the base of [ink-components](https://components.ink) including ways to create, update and display variables as dynamic text and modify them with buttons, inputs, sliders, switches, and dropdowns.
 
