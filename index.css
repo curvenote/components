@@ -1,0 +1,26 @@
+body {
+  --mdc-theme-primary: #02011f;
+  --mdc-theme-secondary: #46f;
+}
+article {
+  margin: auto;
+  padding-left: 10px;
+  padding-right: 250px;
+  position: relative;
+  width: calc( max( min( 100vw , 790px ), 500px ) );
+}
+h1, h2, h3, h4, h5{
+  font-family: 'Oswald', sans-serif;
+}
+p {
+  display: block;
+  text-align: justify;
+  overflow-wrap: break-word;
+  font-size: 17px;
+  line-height: 1.8;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #4D4D4D;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}

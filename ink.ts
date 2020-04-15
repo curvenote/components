@@ -3,6 +3,7 @@ import thunkMiddleware from 'redux-thunk';
 import ink, { types, setup } from '@iooxa/runtime';
 import * as components from './src/components';
 import './src/index.css';
+import './index.css';
 
 declare global {
   interface Window {
