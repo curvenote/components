@@ -1,12 +1,9 @@
-# Ink Components
+# @iooxa/ink-basic
 
-[![Ink Components on npm](https://img.shields.io/npm/v/ink-components.svg)](https://www.npmjs.com/package/ink-components)
+[![Ink-Basic on npm](https://img.shields.io/npm/v/@iooxa/runtime.svg)](https://www.npmjs.com/package/@iooxa/ink-basic)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ink-components/ink-components/blob/master/LICENSE)
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/ink-components)
 
-
-The goal of [ink-components](https://components.ink) is to provide web-components for interactive scientific writing, reactive documents and [explorable explanations](https://explorabl.es).
-Included in [ink-components](https://components.ink) are ways to create, update and display variables as text, equations and charts.
+The goal of ink-basic is to provide web-components for interactive scientific writing, reactive documents and [explorable explanations](https://explorabl.es). This library provides the base of [ink-components](https://components.ink) including ways to create, update and display variables as dynamic text and modify them with buttons, inputs, sliders, switches, and dropdowns.
 
 The [ink-components](https://components.ink) project is heavily inspired by [tangle.js](http://worrydream.com/Tangle/guide.html), re-imagined to use [web-components](https://www.webcomponents.org/)!
 This means you can declaratively write your variables and how to display them in `html` markup.
@@ -23,9 +20,9 @@ To get an idea of what that looks like, let's take the canonical example of *Tan
 <ink-var name="dailyPercent" :value="calories / dailyCalories" format=".0%"></ink-var>
 
 <p>
-    When you eat <ink-dynamic name="cookies" min="2" max="100"> cookies</ink-dynamic>,
-    you consume <ink-display name="calories"></ink-display> calories.<br>
-    That's <ink-display name="dailyPercent"></ink-display> of your recommended daily calories.
+  When you eat <ink-dynamic bind="cookies" min="2" max="100">cookies</ink-dynamic>,
+  you consume <ink-display bind="calories"></ink-display> calories.<br>
+  That's <ink-display bind="dailyPercent"></ink-display> of your recommended daily calories.
 </p>
 ```
 
@@ -35,57 +32,68 @@ Ink is based on web-components, which creates custom HTML tags so that they can 
 To get started, copy the built javascript file to the head of your page:
 
 ```html
-<script src="https://unpkg.com/ink-components"></script>
+<script src="https://unpkg.com/@iooxa/ink-basic"></script>
 ```
 
-You can also download the [latest release](https://github.com/ink-components/ink-components/releases) from GitHub. If you are running this without a web server, ensure the script has `charset="utf-8"` in the script tag. You can also [install from npm](https://www.npmjs.com/package/ink-components):
+You can also download the [latest release](https://github.com/iooxa/ink-basic/releases) from GitHub. If you are running this without a web server, ensure the script has `charset="utf-8"` in the script tag. You can also [install from npm](https://www.npmjs.com/package/@iooxa/ink-basic):
 
 ```bash
->> npm install ink-components
+>> npm install @iooxa/ink-basic
 ```
 
 You should then be able to extend ink as you see fit:
 
 ```javascript
-import * as ink from 'ink-components';
+import components from '@iooxa/ink-basic';
 ```
 
-## Components
+Note that the npm module does not setup the [@iooxa/runtime](https://github.com/iooxa/runtime) store, nor does it register the components. See the [ink.ts](/ink.ts) file for what the built package does to `setup` the store and `register` the components.
 
-* Variables, actions and displays
-    * [ink-scope](https://www.webcomponents.org/element/ink-components/elements/ink-scope)
-    * [ink-var](https://www.webcomponents.org/element/ink-components/elements/ink-var)
-    * [ink-var-list](https://www.webcomponents.org/element/ink-components/elements/ink-var-list)
-    * [ink-display](https://www.webcomponents.org/element/ink-components/elements/ink-display)
-    * [ink-range](https://www.webcomponents.org/element/ink-components/elements/ink-range)
-    * [ink-dynamic](https://www.webcomponents.org/element/ink-components/elements/ink-dynamic)
-    * [ink-button](https://www.webcomponents.org/element/ink-components/elements/ink-button)
-    * [ink-action](https://www.webcomponents.org/element/ink-components/elements/ink-action)
-* Charts
-    * [ink-chart](https://www.webcomponents.org/element/ink-components/elements/ink-chart)
-    * [ink-chart-circle](https://www.webcomponents.org/element/ink-components/elements/ink-chart-circle)
-    * [ink-chart-path](https://www.webcomponents.org/element/ink-components/elements/ink-chart-path)
-    * [ink-chart-text](https://www.webcomponents.org/element/ink-components/elements/ink-chart-text)
-    * [ink-chart-node](https://www.webcomponents.org/element/ink-components/elements/ink-chart-node)
-    * [ink-chart-eqn](https://www.webcomponents.org/element/ink-components/elements/ink-chart-eqn)
-* Simple layout
-    * [ink-article](https://www.webcomponents.org/element/ink-components/elements/ink-article)
-    * [ink-equation](https://www.webcomponents.org/element/ink-components/elements/ink-equation)
-    * [ink-figure](https://www.webcomponents.org/element/ink-components/elements/ink-figure)
-    * [ink-code](https://www.webcomponents.org/element/ink-components/elements/ink-code)
-    * [ink-demo](https://www.webcomponents.org/element/ink-components/elements/ink-demo)
-    * [ink-outline](https://www.webcomponents.org/element/ink-components/elements/ink-outline)
-    * [ink-aside](https://www.webcomponents.org/element/ink-components/elements/ink-aside)
-    * [ink-callout](https://www.webcomponents.org/element/ink-components/elements/ink-callout)
-    * [ink-quote](https://www.webcomponents.org/element/ink-components/elements/ink-quote)
-    * [ink-card](https://www.webcomponents.org/element/ink-components/elements/ink-card)
-    * [ink-byline](https://www.webcomponents.org/element/ink-components/elements/ink-byline)
-    * [h2-more](https://www.webcomponents.org/element/ink-components/elements/h2-more)
-    * [ink-span](https://www.webcomponents.org/element/ink-components/elements/ink-span)
-    * [ink-p](https://www.webcomponents.org/element/ink-components/elements/ink-p)
-    * [ink-div](https://www.webcomponents.org/element/ink-components/elements/ink-div)
-    * [ink-a](https://www.webcomponents.org/element/ink-components/elements/ink-a)
-* Resume elements
-    * [cv-item](https://www.webcomponents.org/element/ink-components/elements/cv-item)
-    * [cv-award](https://www.webcomponents.org/element/ink-components/elements/cv-award)
+## Basic Components
 
+* ink-var
+* ink-display
+* ink-dynamic
+* ink-range
+* ink-action
+* ink-button
+* ink-switch
+* ink-checkbox
+* ink-radio
+* ink-select
+* ink-input
+* ink-visible
+
+## Variables
+
+Variables need to be defined to drive your dynamic document, the `ink-var` web component can specify a name, description and a value.
+
+```html
+<ink-var name="x" value="1"></ink-var>
+```
+
+These variables can be hidden in the DOM, which makes sense in most applications.
+
+### Reactive Variables
+
+You can also create reactive variables which gets and executes a user-defined string using [@iooxa/runtime](https://github.com/iooxa/runtime) with access to all other variables in the `scope`. Note here that the `:value` has a **semi-colon** to show that this should be executed to define the value.
+
+```html
+<ink-var name="xSquared" :value="x * x"></ink-var>
+```
+
+#### Properties of ink-var:
+
+* **name**: The variable to name to in the state, must follow javascript naming conventions for variables.
+* **description**: The variable description, useful for alt-text.
+* **value**: The value of the variable.
+* **:value**: Function to evaluate to update the value. If present, this will update the value anytime the state is changed.
+* **format**: A d3-format string. See the [documentation](https://github.com/d3/d3-format).
+
+## Display Variables
+
+To display an element create an `ink-display`, which will just render the named variable as text.
+
+```html
+<ink-display bind="x"></ink-display>
+```
