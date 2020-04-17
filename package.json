@@ -18,6 +18,7 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint src/**.ts -c .eslintrc.json",
+    "clean": "rm -rf dist",
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build-dev": "webpack --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js; tsc; cp src/index.css dist/ink.css; rm -rf dist/src"
@@ -55,7 +56,7 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
-    "@iooxa/runtime": "^0.2.1",
+    "@iooxa/runtime": "^0.2.2",
     "@material/mwc-button": "^0.14.1",
     "@material/mwc-checkbox": "^0.14.1",
     "@material/mwc-formfield": "^0.14.1",

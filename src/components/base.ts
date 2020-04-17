@@ -40,10 +40,10 @@ export class BaseSubscribe extends LitElement {
   }
 }
 
-export class BaseComponent<T extends types.DefineComponentSpec> extends BaseSubscribe {
+export class BaseComponent<T extends types.DefineSpec> extends BaseSubscribe {
   ink: types.ComponentShortcut<{ [P in keyof T['properties']]: (T['properties'])[P]['default'] }> | null = null;
 
-  static spec: types.ComponentSpec | null = null;
+  static spec: types.Spec | null = null;
 
   connectedCallback() {
     super.connectedCallback();
@@ -53,10 +53,16 @@ export class BaseComponent<T extends types.DefineComponentSpec> extends BaseSubs
     const initializeProperties: Record<string, types.DefineComponentProperty> = {};
     const initializeEvents: Record<string, types.ComponentEvent> = {};
     Object.entries(spec.properties).forEach(([key, prop]) => {
+      if (!prop.has.value && this.getAttribute(key)) {
+        console.warn(`${this.tagName}: Property "${key}" is not defined, but attribute is provided.`);
+      }
+      if (!prop.has.func && this.getAttribute(`:${key}`)) {
+        console.warn(`${this.tagName}: Property ":${key}" is not defined, but attribute is provided.`);
+      }
       initializeProperties[key] = {
         name: key,
-        value: this.getAttribute(key) ?? prop.default,
-        func: this.getAttribute(`:${key}`) ?? '',
+        value: prop.has.value ? this.getAttribute(key) ?? prop.default : null,
+        func: prop.has.func ? this.getAttribute(`:${key}`) ?? '' : '',
       };
     });
     Object.entries(spec.events ?? {}).forEach(([key]) => {
@@ -65,7 +71,9 @@ export class BaseComponent<T extends types.DefineComponentSpec> extends BaseSubs
         func: this.getAttribute(`:${key}`) ?? '',
       };
     });
-    const component = provider.dispatch(actions.createComponent(spec.name, `${scope}.${name}Component`, initializeProperties, initializeEvents));
+    const component = provider.dispatch(actions.createComponent(
+      spec.name, initializeProperties, initializeEvents, { scope, name },
+    ));
     this.ink = component as unknown as types.ComponentShortcut<{ [P in keyof T['properties']]: (T['properties'])[P]['default'] }>;
     this.subscribe(this.ink.id);
   }
@@ -76,7 +84,7 @@ export class BaseComponent<T extends types.DefineComponentSpec> extends BaseSubs
 A class wrapper intended for use with BaseComponent
 
 ```
-@withInk(ComponentSpec)
+@withInk(Spec)
 class MyComponent extends BaseComponent {...}
 ```
 
@@ -97,17 +105,23 @@ The wrapper inserts:
   * static `spec` attribute
 */
 export function withInk<
-T extends types.DefineComponentSpec,
+T extends types.DefineSpec,
 C extends Constructable<BaseComponent<T>>
   >(specDefinition: T, additionalProperties: { [key: string]: PropertyDeclaration } = {}) {
   return (ComponentClass: C) => {
     const litProperties = { ...additionalProperties };
 
-    const spec = utils.getComponentSpecFromDefinition(specDefinition);
+    const spec = utils.getSpecFromDefinition(specDefinition);
 
     // Add the properties
     Object.entries(spec.properties).forEach(([key, prop]) => {
-      if (!prop.has.value) return;
+      if (!prop.has.value) {
+        Object.defineProperty(ComponentClass.prototype, key, {
+          get() { console.warn(`Property "${key}" is not defined for "${specDefinition.name}".`); return undefined; },
+          set() { console.warn(`Property "${key}" is not defined for "${specDefinition.name}".`); },
+        });
+        return;
+      }
       litProperties[key] = { type: String };
       Object.defineProperty(ComponentClass.prototype, key, {
         get() {

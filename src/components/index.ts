@@ -14,7 +14,7 @@ import InkVisible from './visible';
 
 
 function registerComponent(name: string, component: any) {
-  provider.dispatch(actions.createComponentSpec(
+  provider.dispatch(actions.createSpec(
     component.spec!.name,
     component.spec!.properties,
     component.spec!.events,

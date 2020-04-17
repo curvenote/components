@@ -8,8 +8,11 @@ import { throttle } from 'underscore';
 import { THROTTLE_SKIP } from '../types';
 import { BaseComponent, withInk, onBindChange } from './base';
 import { formatter } from '../utils';
+import { getValueOrTransform } from './utils';
 
 const CURSOR_DRAG_CLASS = 'ink-drag-horz';
+// The virtual width of the dynamic text, about the width of half a phone:
+const RANGE_WIDTH = 250;
 
 export const InkDynamicSpec = {
   name: 'dynamic',
@@ -23,6 +26,9 @@ export const InkDynamicSpec = {
     format: { type: types.PropTypes.string, default: DEFAULT_FORMAT },
     periodic: { type: types.PropTypes.boolean, default: false },
     after: { type: types.PropTypes.string, default: '', description: 'Text to follow the formatted value, which remains dynamic.' },
+    transform: {
+      type: types.PropTypes.string, default: '', args: ['value'], has: { func: true, value: false },
+    },
   },
   events: {
     change: { args: ['value'] },
@@ -77,9 +83,8 @@ class InkDynamic extends BaseComponent<typeof InkDynamicSpec> {
         step, min, max, sensitivity, periodic,
       } = this.ink!.state;
 
-      // TODO: Sensitivity should be calculated based on range to px.
       // By default the sensitivity is 1value == 5px
-      const valuePerPixel = sensitivity / 5;
+      const valuePerPixel = sensitivity / (RANGE_WIDTH / (Math.abs(max - min) + 1));
 
       let newValue;
       if (periodic) {
@@ -125,8 +130,9 @@ class InkDynamic extends BaseComponent<typeof InkDynamicSpec> {
   }
 
   render() {
-    const { value, format, after } = this.ink!.state;
-    return html`<span class="dynamic">${formatter(value, format)} ${after}<slot hidden></slot></span><div class="help" style="${this.#dragging ? 'display:none' : ''}">drag</div>`;
+    const { format, after } = this.ink!.state;
+    const val = getValueOrTransform(this.ink);
+    return html`<span class="dynamic">${formatter(val, format)} ${after}<slot hidden></slot></span><div class="help" style="${this.#dragging ? 'display:none' : ''}">drag</div>`;
   }
 }
 
