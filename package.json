@@ -19,6 +19,7 @@
     "test": "jest",
     "lint": "eslint src/**.ts -c .eslintrc.json",
     "clean": "rm -rf dist",
+    "link": "npm link; npm link @iooxa/runtime",
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build-dev": "webpack --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js; tsc; cp src/index.css dist/ink.css; rm -rf dist/src"
