@@ -1,5 +1,5 @@
 import {
-  LitElement, html, PropertyDeclaration, PropertyValues,
+  LitElement, html, svg, PropertyDeclaration, PropertyValues,
 } from 'lit-element';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 import { BaseComponent, withInk } from './components/base';
@@ -8,7 +8,7 @@ import { THROTTLE_SKIP } from './types';
 
 export * from './components';
 export {
-  LitElement, html, PropertyDeclaration, PropertyValues,
+  LitElement, html, svg, PropertyDeclaration, PropertyValues,
   unsafeHTML, BaseComponent, withInk, THROTTLE_SKIP,
 };
 

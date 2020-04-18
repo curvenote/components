@@ -29,8 +29,13 @@ export class BaseSubscribe extends LitElement {
 
   subscribe(id: string) {
     this.unsubscribe();
-    this.#unsubscribe = provider.subscribe(id, () => this.requestUpdate());
+    this.#unsubscribe = provider.subscribe(id, () => this.requestInkUpdate());
     return this.#unsubscribe;
+  }
+
+  requestInkUpdate() {
+    // Allows overwriting this!
+    this.requestUpdate();
   }
 
   #unsubscribe?: Unsubscribe;

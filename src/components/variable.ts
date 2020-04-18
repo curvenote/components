@@ -5,6 +5,23 @@ import {
 import { formatter } from '../utils';
 import { BaseSubscribe, withInk } from './base';
 
+function toString(current: any, format: string) {
+  switch (typeof current) {
+    case 'string':
+      return `"${current}"`;
+    case 'number':
+      return formatter(current, format);
+    case 'object':
+      try {
+        return JSON.stringify(current);
+      } catch (error) {
+        return String(current);
+      }
+    default:
+      return String(current);
+  }
+}
+
 @withInk(InkVarSpec)
 class InkVar extends BaseSubscribe {
   connectedCallback() {
@@ -29,12 +46,12 @@ class InkVar extends BaseSubscribe {
       name, value, current, func, format, derived,
     } = this.ink!.state;
     // TODO: show error if name is not defined
-    const formatted = (typeof current === 'string') ? `"${current}"` : formatter(current, format);
+    const currentStr = toString(current, format);
     if (derived) {
-      return html`<code>function ${name}() { return ${func}; }</code> = ${formatted}`;
+      return html`<code>function ${name}() { return ${func}; }</code> = ${currentStr}`;
     }
-    const formattedValue = formatter(value, format);
-    return html`${name} = ${formattedValue}, Current: ${formatted}`;
+    const valueStr = toString(value, format);
+    return html`${name} = ${valueStr}, Current: ${currentStr}`;
   }
 }
 
