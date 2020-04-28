@@ -1,8 +1,8 @@
 import { html } from 'lit-element';
 import { types } from '@iooxa/runtime';
-import { BaseComponent, withInk } from './base';
+import { BaseComponent, withRuntime } from './base';
 
-export const InkVisibleSpec = {
+export const VisibleSpec = {
   name: 'visible',
   description: 'Component that reacts to visibility',
   properties: {
@@ -11,13 +11,13 @@ export const InkVisibleSpec = {
   events: {},
 };
 
-@withInk(InkVisibleSpec, { bind: { type: String, reflect: true } })
-class InkVisible extends BaseComponent<typeof InkVisibleSpec> {
+@withRuntime(VisibleSpec, { bind: { type: String, reflect: true } })
+class Visible extends BaseComponent<typeof VisibleSpec> {
   render() {
-    const { visible } = this.ink!.state;
+    const { visible } = this.$runtime!.state;
     this.hidden = !visible;
     return html`<slot></slot>`;
   }
 }
 
-export default InkVisible;
+export default Visible;

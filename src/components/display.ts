@@ -1,10 +1,10 @@
 import { html, PropertyValues } from 'lit-element';
 import { types, DEFAULT_FORMAT } from '@iooxa/runtime';
 import { formatter } from '../utils';
-import { BaseComponent, withInk, onBindChange } from './base';
+import { BaseComponent, withRuntime, onBindChange } from './base';
 import { getValueOrTransform } from './utils';
 
-export const InkDisplaySpec = {
+export const DisplaySpec = {
   name: 'display',
   description: 'Inline display of values',
   properties: {
@@ -17,17 +17,17 @@ export const InkDisplaySpec = {
   events: {},
 };
 
-@withInk(InkDisplaySpec, { bind: { type: String, reflect: true } })
-class InkDisplay extends BaseComponent<typeof InkDisplaySpec> {
+@withRuntime(DisplaySpec, { bind: { type: String, reflect: true } })
+class Display extends BaseComponent<typeof DisplaySpec> {
   updated(updated: PropertyValues) { onBindChange(updated, this); }
 
   render() {
-    const { format } = this.ink!.state;
-    const val = getValueOrTransform(this.ink);
+    const { format } = this.$runtime!.state;
+    const val = getValueOrTransform(this.$runtime);
     const formatted = formatter(val, format);
     this.textContent = formatted;
     return html`<slot></slot>`;
   }
 }
 
-export default InkDisplay;
+export default Display;

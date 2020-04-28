@@ -11,12 +11,12 @@ interface Constructable<T> {
 }
 
 export class BaseSubscribe extends LitElement {
-  ink: any | null = null;
+  $runtime: any | null = null;
 
   #scope?: Element;
 
   public get scope(): string | null {
-    const closestScope = this.closest('ink-scope');
+    const closestScope = this.closest('r-scope');
     // Always use the *first* scope found. Important on removeVariable.
     if (closestScope != null) this.#scope = closestScope;
     return (this.#scope ?? closestScope)?.getAttribute('name') ?? DEFAULT_SCOPE;
@@ -24,16 +24,16 @@ export class BaseSubscribe extends LitElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.ink?.remove();
+    this.$runtime?.remove();
   }
 
   subscribe(id: string) {
     this.unsubscribe();
-    this.#unsubscribe = provider.subscribe(id, () => this.requestInkUpdate());
+    this.#unsubscribe = provider.subscribe(id, () => this.requestRuntimeUpdate());
     return this.#unsubscribe;
   }
 
-  requestInkUpdate() {
+  requestRuntimeUpdate() {
     // Allows overwriting this!
     this.requestUpdate();
   }
@@ -46,7 +46,7 @@ export class BaseSubscribe extends LitElement {
 }
 
 export class BaseComponent<T extends types.DefineSpec> extends BaseSubscribe {
-  ink: types.ComponentShortcut<{ [P in keyof T['properties']]: (T['properties'])[P]['default'] }> | null = null;
+  $runtime: types.ComponentShortcut<{ [P in keyof T['properties']]: (T['properties'])[P]['default'] }> | null = null;
 
   static spec: types.Spec | null = null;
 
@@ -66,30 +66,30 @@ export class BaseComponent<T extends types.DefineSpec> extends BaseSubscribe {
       }
       initializeProperties[key] = {
         name: key,
-        value: prop.has.value ? this.getAttribute(key) ?? prop.default : null,
-        func: prop.has.func ? this.getAttribute(`:${key}`) ?? '' : '',
+        value: prop.has.value ? this.getAttribute(prop.attribute) ?? prop.default : null,
+        func: prop.has.func ? this.getAttribute(`:${prop.attribute}`) ?? '' : '',
       };
     });
-    Object.entries(spec.events ?? {}).forEach(([key]) => {
+    Object.entries(spec.events ?? {}).forEach(([key, evt]) => {
       initializeEvents[key] = {
         name: key,
-        func: this.getAttribute(`:${key}`) ?? '',
+        func: this.getAttribute(`:${evt.attribute}`) ?? '',
       };
     });
     const component = provider.dispatch(actions.createComponent(
       spec.name, initializeProperties, initializeEvents, { scope, name },
     ));
-    this.ink = component as unknown as types.ComponentShortcut<{ [P in keyof T['properties']]: (T['properties'])[P]['default'] }>;
-    this.subscribe(this.ink.id);
+    this.$runtime = component as unknown as types.ComponentShortcut<{ [P in keyof T['properties']]: (T['properties'])[P]['default'] }>;
+    this.subscribe(this.$runtime.id);
   }
 }
 
-/* withInk
+/* withRuntime
 
 A class wrapper intended for use with BaseComponent
 
 ```
-@withInk(Spec)
+@withRuntime(Spec)
 class MyComponent extends BaseComponent {...}
 ```
 
@@ -109,7 +109,7 @@ The wrapper inserts:
       * `on${Prop}Event` with the attribute `:${prop}`
   * static `spec` attribute
 */
-export function withInk<
+export function withRuntime<
 T extends types.DefineSpec,
 C extends Constructable<BaseComponent<T>>
   >(specDefinition: T, additionalProperties: { [key: string]: PropertyDeclaration } = {}) {
@@ -127,20 +127,22 @@ C extends Constructable<BaseComponent<T>>
         });
         return;
       }
-      litProperties[key] = { type: String };
+      litProperties[key] = { type: String, attribute: prop.attribute };
       Object.defineProperty(ComponentClass.prototype, key, {
         get() {
-          return this.ink?.state?.[key];
+          return this.$runtime?.state?.[key];
         },
         set(value: string) {
           if (value == null) {
-            this.removeAttribute(key);
-            const prevFunc = this.ink?.component.properties[key].func;
-            this.ink?.setProperties({ [key]: { value: value ?? prop.default, func: prevFunc } });
+            this.removeAttribute(prop.attribute);
+            const prevFunc = this.$runtime?.component.properties[key].func;
+            this.$runtime?.setProperties(
+              { [key]: { value: value ?? prop.default, func: prevFunc } }
+            );
           } else {
-            this.setAttribute(key, String(value));
-            this.removeAttribute(`:${key}`);
-            this.ink?.setProperties({ [key]: { value: value ?? prop.default, func: '' } });
+            this.setAttribute(prop.attribute, String(value));
+            this.removeAttribute(`:${prop.attribute}`);
+            this.$runtime?.setProperties({ [key]: { value: value ?? prop.default, func: '' } });
           }
         },
       });
@@ -149,40 +151,40 @@ C extends Constructable<BaseComponent<T>>
     // Add the property functions
     Object.entries(spec.properties).forEach(([key, prop]) => {
       if (!prop.has.func) return;
-      litProperties[`${key}Function`] = { type: String, attribute: `:${key}` };
+      litProperties[`${key}Function`] = { type: String, attribute: `:${prop.attribute}` };
       Object.defineProperty(ComponentClass.prototype, `${key}Function`, {
         get() {
-          return this.ink?.component.properties[key].func;
+          return this.$runtime?.component.properties[key].func;
         },
         set(value: string) {
           if (value == null) {
-            this.removeAttribute(`:${key}`);
+            this.removeAttribute(`:${prop.attribute}`);
           } else {
-            this.setAttribute(`:${key}`, String(value).trim());
+            this.setAttribute(`:${prop.attribute}`, String(value).trim());
           }
-          const prevValue = this.ink?.component.properties[key].value;
-          this.ink?.setProperties({ [key]: { value: prevValue, func: String(value ?? '').trim() } });
+          const prevValue = this.$runtime?.component.properties[key].value;
+          this.$runtime?.setProperties({ [key]: { value: prevValue, func: String(value ?? '').trim() } });
         },
       });
     });
 
 
-    Object.entries(spec.events ?? {}).forEach(([key]) => {
+    Object.entries(spec.events ?? {}).forEach(([key, evt]) => {
       // Add the property
       const onKeyEvent = `on${key.slice(0, 1).toUpperCase()}${key.slice(1)}Event`;
-      litProperties[onKeyEvent] = { type: String, attribute: `:${key}` };
+      litProperties[onKeyEvent] = { type: String, attribute: `:${evt.attribute}` };
 
       Object.defineProperty(ComponentClass.prototype, onKeyEvent, {
         get() {
-          return this.ink?.component.events[key].func;
+          return this.$runtime?.component.events[key].func;
         },
         set(value: string) {
           if (value == null) {
-            this.removeAttribute(`:${key}`);
-            this.ink?.set({}, { [key]: { func: String(value).trim() ?? '' } });
+            this.removeAttribute(`:${evt.attribute}`);
+            this.$runtime?.set({}, { [key]: { func: String(value).trim() ?? '' } });
           } else {
-            this.setAttribute(`:${key}`, String(value).trim());
-            this.ink?.set({}, { [key]: { func: String(value).trim() ?? '' } });
+            this.setAttribute(`:${evt.attribute}`, String(value).trim());
+            this.$runtime?.set({}, { [key]: { func: String(value).trim() ?? '' } });
           }
         },
       });
@@ -215,5 +217,5 @@ export function onBindChange(
     props.format = { value: variable?.format ?? spec!.properties.format.default };
   }
   const events = eventKey ? { [eventKey]: { func: `{${bind}: value}` } } : {};
-  component.ink?.set(props, events);
+  component.$runtime?.set(props, events);
 }

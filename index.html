@@ -7,90 +7,87 @@
 </head>
 <body>
   <article>
-    <h1>Ink Components</h1>
+    <h1>@iooxa/components</h1>
     <p>
-      The goal of <code>ink</code> is to provide web-components for interactive scientific writing, reactive documents and <a href="//explorabl.es/" >explorable explanations</a>.
-      Included in <code>ink</code> are ways to create, update and display variables as text, equations and charts.
+      The goal of <code>@iooxa/components</code> is to provide web-components for interactive scientific writing, reactive documents and <a href="//explorabl.es/">explorable explanations</a>.
+      Included in <code>@iooxa/components</code> are ways to create, update and display variables as text, inputs, sliders and switches.
     </p>
 
     <h2>Tangled Cookies</h2>
-    <ink-scope name="untangle">
-      <ink-var name="simple" value="false" type="Boolean"></ink-var>
+    <r-scope name="untangle">
+      <r-var name="simple" value="false" type="Boolean"></r-var>
       <p>
         <code>ink</code> is heavily inspired by <a href="http://worrydream.com/Tangle/guide.html">tangle.js</a>, updated to be use web-components!
         This means you can declaratively write your variables and how to display them in <code>html</code> markup.
-        To get an idea of what that looks like, let's take the canonical example of <emph>Tangled Cookies</emph> - a simple reactive document to encourage you to not eat more than <ink-action :click="{'demo1.cookies':42, 'demo2.cookies':42, simple:false}">42 cookies</ink-action> in one day.
+        To get an idea of what that looks like, let's take the canonical example of <emph>Tangled Cookies</emph> - a simple reactive document to encourage you to not eat more than <r-action :click="{'demo1.cookies':42, 'demo2.cookies':42, simple:false}">42 cookies</r-action> in one day.
       </p>
-      <ink-switch bind="simple" label="Simple Example"></ink-switch>
-      <ink-checkbox bind="simple" label="Simple Example"></ink-checkbox>
-      <ink-button :click="{simple: !simple}" :label="`${(simple ? 'Show' : 'Hide')} Advanced Example`" style="float: right; margin-right: 5px;"></ink-button>
-      <ink-visible :visible="simple">
-        <ink-scope name="demo1">
-          <ink-demo>
-            <ink-var name="cookies" value="3" format=".4"></ink-var>
+      <r-switch bind="simple" label="Simple Example"></r-switch>
+      <r-checkbox bind="simple" label="Simple Example"></r-checkbox>
+      <r-button :click="{simple: !simple}" :label="`${(simple ? 'Show' : 'Hide')} Advanced Example`" style="float: right; margin-right: 5px;"></r-button>
+      <r-visible :visible="simple">
+        <r-scope name="demo1">
+          <r-demo>
+            <r-var name="cookies" value="3" format=".4"></r-var>
             <p>
-              When you eat <ink-dynamic bind="cookies" min="2" max="100">cookies</ink-dynamic>,
-              you consume <ink-display :value="cookies * 50" format=".0f"/></ink-display> calories.
+              When you eat <r-dynamic bind="cookies" min="2" max="100">cookies</r-dynamic>,
+              you consume <r-display :value="cookies * 50" format=".0f"/></r-display> calories.
             </p>
-          </ink-demo>
-        </ink-scope>
-      </ink-visible>
+          </r-demo>
+        </r-scope>
+      </r-visible>
 
-      <ink-visible :visible="!simple">
-        <ink-scope name="demo2">
-          <ink-demo>
-            <ink-var name="cookies" value="3" format=".4"></ink-var>
-            <ink-var name="caloriesPerCookie" value="50"></ink-var>
-            <ink-var name="dailyCalories" value="2100"></ink-var>
+      <r-visible :visible="!simple">
+        <r-scope name="demo2">
+          <r-demo>
+            <r-var name="cookies" value="3" format=".4"></r-var>
+            <r-var name="caloriesPerCookie" value="50"></r-var>
+            <r-var name="dailyCalories" value="2100"></r-var>
 
-            <ink-var name="calories" :value="cookies * caloriesPerCookie" format=".0f"></ink-var>
-            <ink-var name="dailyPercent" :value="calories / dailyCalories" format=".0%"></ink-var>
+            <r-var name="calories" :value="cookies * caloriesPerCookie" format=".0f"></r-var>
+            <r-var name="dailyPercent" :value="calories / dailyCalories" format=".0%"></r-var>
 
             <p>
-              When you eat <ink-dynamic bind="cookies" min="2" max="100">cookies</ink-dynamic>,
-              you consume <ink-display bind="calories"></ink-display> calories.<br>
-              That's <ink-display bind="dailyPercent"></ink-display> of your recommended daily calories.
+              When you eat <r-dynamic bind="cookies" min="2" max="100">cookies</r-dynamic>,
+              you consume <r-display bind="calories"></r-display> calories.<br>
+              That's <r-display bind="dailyPercent"></r-display> of your recommended daily calories.
             </p>
-            <ink-range bind="cookies" min="2" max="100"></ink-range>
+            <r-range bind="cookies" min="2" max="100"></r-range>
             <script type="text/javascript">
               function logToConsole(value, calories) {
                 console.log("Working! value=", value, "calories=", calories);
                 return {cookies: value}
               }
             </script>
-            <ink-range :value="cookies" :change="logToConsole(value, calories)" min="2" max="100"></ink-range>
-          </ink-demo>
-        </ink-scope>
-      </ink-visible>
-    </ink-scope>
+            <r-range :value="cookies" :change="logToConsole(value, calories)" min="2" max="100"></r-range>
+          </r-demo>
+        </r-scope>
+      </r-visible>
+    </r-scope>
 
-    <ink-var name="place" value="somewhere" type="String"></ink-var>
-    <ink-radio bind="place" labels="home,work,play"></ink-radio>
-    <ink-select bind="place" labels="home,work,play"></ink-select>
-    <ink-input bind="place"></ink-input>
+    <r-var name="place" value="somewhere" type="String"></r-var>
+    <r-radio bind="place" labels="home,work,play"></r-radio>
+    <r-select bind="place" labels="home,work,play"></r-select>
+    <r-input bind="place"></r-input>
 
 
-    <ink-scope name="snells">
-      <ink-var name="theta1" value="0.7853981633974483"></ink-var>
-      <ink-var name="v1" value="400"></ink-var>
-      <ink-var name="v2" value="500"></ink-var>
-      <ink-var name="theta2" :value="Math.asin(v2 * Math.sin(theta1) / v1)"></ink-var>
-      <ink-var name="thetac" :value="Math.asin(v1 / v2)"></ink-var>
+    <r-scope name="snells">
+      <r-var name="theta1" value="0.7853981633974483"></r-var>
+      <r-var name="v1" value="400"></r-var>
+      <r-var name="v2" value="500"></r-var>
+      <r-var name="theta2" :value="Math.asin(v2 * Math.sin(theta1) / v1)"></r-var>
+      <r-var name="thetac" :value="Math.asin(v1 / v2)"></r-var>
 
       <br>
-      <ink-aside>
-        $\theta_1$: <ink-dynamic :value="theta1 * 180 / Math.PI" :change="{theta1: value * Math.PI / 180}" min="0" max="90">
-          &deg;</ink-dynamic><br>
-          $\theta_2$: <ink-span :visible="!isFinite(theta2)">No Refraction Wave</ink-span>
-          <ink-span :visible="isFinite(theta2)">
-            <ink-display :value="theta2*180/Math.PI"></ink-display>&deg;
-          </ink-span><br>
-          $v_1$: <ink-range bind="v1" min="100" :max="v2" step="10" width="100px"></ink-range>
-          <ink-display bind="v1"></ink-display> m/s<br>
-          $v_2$: <ink-range bind="v2" :min="v1" max="2000" step="10" width="100px"></ink-range>
-          <ink-display bind="v2"></ink-display> m/s<br>
-        </ink-aside>
-    </ink-scope>
+      $\theta_1$: <r-dynamic :value="theta1 * 180 / Math.PI" :change="{theta1: value * Math.PI / 180}" min="0" max="90" after="º"></r-dynamic><br>
+      $\theta_2$: <r-visible :visible="!isFinite(theta2)">No Refraction Wave</r-visible>
+      <r-visible :visible="isFinite(theta2)">
+        <r-display :value="theta2*180/Math.PI"></r-display>º
+      </r-visible><br>
+      $v_1$: <r-range bind="v1" min="100" :max="v2" step="10" width="100px"></r-range>
+      <r-display bind="v1"></r-display> m/s<br>
+      $v_2$: <r-range bind="v2" :min="v1" max="2000" step="10" width="100px"></r-range>
+      <r-display bind="v2"></r-display> m/s<br>
+    </r-scope>
   </article>
 </body>
 </html>

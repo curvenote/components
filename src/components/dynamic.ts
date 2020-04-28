@@ -4,17 +4,17 @@ import {
 import { drag, DragBehavior } from 'd3-drag';
 import { select, event } from 'd3-selection';
 import { types, DEFAULT_FORMAT } from '@iooxa/runtime';
-import { throttle } from 'underscore';
+import throttle from 'lodash.throttle';
 import { THROTTLE_SKIP } from '../types';
-import { BaseComponent, withInk, onBindChange } from './base';
+import { BaseComponent, withRuntime, onBindChange } from './base';
 import { formatter } from '../utils';
 import { getValueOrTransform } from './utils';
 
-const CURSOR_DRAG_CLASS = 'ink-drag-horz';
+const CURSOR_COL_RESIZE = 'cursor-col-resize';
 // The virtual width of the dynamic text, about the width of half a phone:
 const RANGE_WIDTH = 250;
 
-export const InkDynamicSpec = {
+export const DynamicSpec = {
   name: 'dynamic',
   description: 'Inline text that drags a value inside a range',
   properties: {
@@ -39,8 +39,8 @@ function positiveModulus(n: number, m: number) {
   return ((n % m) + m) % m;
 }
 
-@withInk(InkDynamicSpec, { bind: { type: String, reflect: true } })
-class InkDynamic extends BaseComponent<typeof InkDynamicSpec> {
+@withRuntime(DynamicSpec, { bind: { type: String, reflect: true } })
+class Dynamic extends BaseComponent<typeof DynamicSpec> {
   updated(updated: PropertyValues) { onBindChange(updated, this, 'change'); }
 
   #dragging: boolean = false;
@@ -53,11 +53,9 @@ class InkDynamic extends BaseComponent<typeof InkDynamicSpec> {
     super.firstUpdated(changedProps);
 
     // Set innerText if it is there to the after property:
-    if (this.innerText) {
-      this.setAttribute('after', this.innerText);
-    }
+    if (this.innerText) this.$runtime?.set({ after: { value: ` ${this.innerText}` } });
 
-    const throttled = throttle((val: number) => this.ink?.dispatchEvent('change', [val]), THROTTLE_SKIP);
+    const throttled = throttle((val: number) => this.$runtime?.dispatchEvent('change', [val]), THROTTLE_SKIP);
 
     const node = this as Element;
     const bodyClassList = document.getElementsByTagName('BODY')[0].classList;
@@ -66,12 +64,12 @@ class InkDynamic extends BaseComponent<typeof InkDynamicSpec> {
       event.sourceEvent.preventDefault();
       event.sourceEvent.stopPropagation();
       this.#dragging = true; // Hides the "drag" tool-tip
-      const { value } = this.ink!.state;
+      const { value } = this.$runtime!.state;
       this.#prevValue = Number(value); // Start out with the actual value
-      bodyClassList.add(CURSOR_DRAG_CLASS);
+      bodyClassList.add(CURSOR_COL_RESIZE);
     }).on('end', () => {
       this.#dragging = false;
-      bodyClassList.remove(CURSOR_DRAG_CLASS);
+      bodyClassList.remove(CURSOR_COL_RESIZE);
       this.requestUpdate();
     }).on('drag', () => {
       event.sourceEvent.preventDefault();
@@ -81,9 +79,9 @@ class InkDynamic extends BaseComponent<typeof InkDynamicSpec> {
 
       const {
         step, min, max, sensitivity, periodic,
-      } = this.ink!.state;
+      } = this.$runtime!.state;
 
-      // By default the sensitivity is 1value == 5px
+      // The sensitivity is based on the RANGE_WIDTH
       const valuePerPixel = sensitivity / (RANGE_WIDTH / (Math.abs(max - min) + 1));
 
       let newValue;
@@ -130,10 +128,10 @@ class InkDynamic extends BaseComponent<typeof InkDynamicSpec> {
   }
 
   render() {
-    const { format, after } = this.ink!.state;
-    const val = getValueOrTransform(this.ink);
-    return html`<span class="dynamic">${formatter(val, format)} ${after}<slot hidden></slot></span><div class="help" style="${this.#dragging ? 'display:none' : ''}">drag</div>`;
+    const { format, after } = this.$runtime!.state;
+    const val = getValueOrTransform(this.$runtime);
+    return html`<span class="dynamic">${formatter(val, format)}${after}<slot hidden></slot></span><div class="help" style="${this.#dragging ? 'display:none' : ''}">drag</div>`;
   }
 }
 
-export default InkDynamic;
+export default Dynamic;

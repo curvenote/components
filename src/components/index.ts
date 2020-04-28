@@ -1,19 +1,19 @@
 import { actions, provider } from '@iooxa/runtime';
-import InkVar from './variable';
-import InkDisplay from './display';
-import InkRange from './range';
-import InkDynamic from './dynamic';
-import InkAction from './action';
-import InkButton from './button';
-import InkSwitch from './switch';
-import InkCheckbox from './checkbox';
-import InkRadio from './radio';
-import InkSelect from './select';
-import InkInput from './input';
-import InkVisible from './visible';
+import Variable from './variable';
+import Display from './display';
+import Range from './range';
+import Dynamic from './dynamic';
+import Action from './action';
+import Button from './button';
+import Switch from './switch';
+import Checkbox from './checkbox';
+import Radio from './radio';
+import Select from './select';
+import Input from './input';
+import Visible from './visible';
 
 
-function registerComponent(name: string, component: any) {
+export function registerComponent(name: string, component: any) {
   provider.dispatch(actions.createSpec(
     component.spec!.name,
     component.spec!.properties,
@@ -23,31 +23,31 @@ function registerComponent(name: string, component: any) {
 }
 
 export const register = () => {
-  customElements.define('ink-var', InkVar);
-  registerComponent('ink-display', InkDisplay);
-  registerComponent('ink-dynamic', InkDynamic);
-  registerComponent('ink-range', InkRange);
-  registerComponent('ink-action', InkAction);
-  registerComponent('ink-button', InkButton);
-  registerComponent('ink-switch', InkSwitch);
-  registerComponent('ink-checkbox', InkCheckbox);
-  registerComponent('ink-radio', InkRadio);
-  registerComponent('ink-select', InkSelect);
-  registerComponent('ink-input', InkInput);
-  registerComponent('ink-visible', InkVisible);
+  customElements.define('r-var', Variable);
+  registerComponent('r-display', Display);
+  registerComponent('r-dynamic', Dynamic);
+  registerComponent('r-range', Range);
+  registerComponent('r-action', Action);
+  registerComponent('r-button', Button);
+  registerComponent('r-switch', Switch);
+  registerComponent('r-checkbox', Checkbox);
+  registerComponent('r-radio', Radio);
+  registerComponent('r-select', Select);
+  registerComponent('r-input', Input);
+  registerComponent('r-visible', Visible);
 };
 
-export {
-  InkVar,
-  InkDisplay,
-  InkDynamic,
-  InkRange,
-  InkAction,
-  InkButton,
-  InkSwitch,
-  InkCheckbox,
-  InkRadio,
-  InkSelect,
-  InkInput,
-  InkVisible,
+export default {
+  Variable,
+  Display,
+  Dynamic,
+  Range,
+  Action,
+  Button,
+  Switch,
+  Checkbox,
+  Radio,
+  Select,
+  Input,
+  Visible,
 };

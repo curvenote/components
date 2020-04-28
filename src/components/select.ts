@@ -2,10 +2,10 @@ import '@material/mwc-select';
 import '@material/mwc-list/mwc-list-item';
 import { html, PropertyValues } from 'lit-element';
 import { types } from '@iooxa/runtime';
-import { BaseComponent, withInk, onBindChange } from './base';
+import { BaseComponent, withRuntime, onBindChange } from './base';
 import { getLabelsAndValues } from './utils';
 
-export const InkSelectSpec = {
+export const SelectSpec = {
   name: 'select',
   description: 'Input button element',
   properties: {
@@ -19,21 +19,21 @@ export const InkSelectSpec = {
   },
 };
 
-@withInk(InkSelectSpec, { bind: { type: String, reflect: true } })
-class InkSelect extends BaseComponent<typeof InkSelectSpec> {
+@withRuntime(SelectSpec, { bind: { type: String, reflect: true } })
+class Select extends BaseComponent<typeof SelectSpec> {
   updated(updated: PropertyValues) { onBindChange(updated, this, 'change'); }
 
   render() {
     const {
       label, value, labels: labelsString, values: valuesString,
-    } = this.ink!.state;
+    } = this.$runtime!.state;
     const { labels, values } = getLabelsAndValues(labelsString, valuesString);
     const changeHandler = (evt: any) => {
-      this.ink?.dispatchEvent('change', [values[evt.detail.index]]);
+      this.$runtime?.dispatchEvent('change', [values[evt.detail.index]]);
     };
 
     return html`<mwc-select label="${label}" @selected=${changeHandler}>${labels.map((item, i) => html`<mwc-list-item value=${values[i]} ?selected=${String(value) === values[i]}>${item}</mwc-list-item>`)}</mwc-select>`;
   }
 }
 
-export default InkSelect;
+export default Select;

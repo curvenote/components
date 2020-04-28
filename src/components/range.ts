@@ -1,11 +1,11 @@
 import '@material/mwc-slider';
 import { html, PropertyValues, css } from 'lit-element';
 import { types } from '@iooxa/runtime';
-import { throttle } from 'underscore';
-import { BaseComponent, withInk, onBindChange } from './base';
+import throttle from 'lodash.throttle';
+import { BaseComponent, withRuntime, onBindChange } from './base';
 import { HTMLElementEvent, THROTTLE_SKIP } from '../types';
 
-export const InkRangeSpec = {
+export const RangeSpec = {
   name: 'range',
   description: 'Range input',
   properties: {
@@ -19,8 +19,8 @@ export const InkRangeSpec = {
   },
 };
 
-@withInk(InkRangeSpec, { bind: { type: String, reflect: true } })
-class InkRange extends BaseComponent<typeof InkRangeSpec> {
+@withRuntime(RangeSpec, { bind: { type: String, reflect: true } })
+class Range extends BaseComponent<typeof RangeSpec> {
   updated(updated: PropertyValues) { onBindChange(updated, this, 'change'); }
 
   #throttled: ((v: number) => void) | null = null;
@@ -28,10 +28,10 @@ class InkRange extends BaseComponent<typeof InkRangeSpec> {
   render() {
     const {
       value, min, max, step,
-    } = this.ink!.state;
+    } = this.$runtime!.state;
 
     if (this.#throttled == null) {
-      this.#throttled = throttle((val: number) => this.ink?.dispatchEvent('change', [val]), THROTTLE_SKIP);
+      this.#throttled = throttle((val: number) => this.$runtime?.dispatchEvent('change', [val]), THROTTLE_SKIP);
     }
 
     const changeHandler = (event: HTMLElementEvent<HTMLInputElement>) => {
@@ -40,7 +40,9 @@ class InkRange extends BaseComponent<typeof InkRangeSpec> {
     };
 
     const [small, big] = [Math.min(min, max), Math.max(min, max)];
-
+    if (small > 100 || big > 100 || step !== 1) {
+      return html`<input type="range" min="${small}" step="${step}" max="${big}" value="${value}" @input="${changeHandler}"></input>`;
+    }
     return html`<div><mwc-slider min="${small}" step="${step}" max="${big}" value="${value}" @input="${changeHandler}"></mwc-slider><div>`;
   }
 
@@ -59,4 +61,4 @@ class InkRange extends BaseComponent<typeof InkRangeSpec> {
   }
 }
 
-export default InkRange;
+export default Range;

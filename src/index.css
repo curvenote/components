@@ -1,4 +1,4 @@
-ink-var {
+r-var {
   display: block;
   color: #D46485;
   border: 1px solid #D4D4D4;
@@ -8,16 +8,22 @@ ink-var {
   padding: 5px;
   margin: 5px 0;
 }
-/* This is for ink-dynamic when dragging */
-body.ink-drag-horz{
-  cursor: col-resize;
-}
-ink-dynamic {
+r-dynamic {
   color: var(--mdc-theme-secondary, #46F);
   border-bottom: 1px dashed var(--mdc-theme-secondary, #46F);
 }
-ink-action {
+r-action {
   cursor: pointer;
   color: var(--mdc-theme-secondary, #46F);
   border-bottom: 1px solid var(--mdc-theme-secondary, #46F);
+}
+r-action.noclick {
+  cursor: unset;
+  border-bottom: unset;
+}
+.cursor-move{
+  cursor: move;
+}
+.cursor-col-resize{
+  cursor: col-resize;
 }
