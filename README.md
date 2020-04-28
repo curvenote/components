@@ -41,13 +41,13 @@ You can also download the [latest release](https://github.com/iooxa/components/r
 >> npm install @iooxa/components
 ```
 
-You should then be able to extend ink as you see fit:
+You should then be able to extend the package as you see fit:
 
 ```javascript
 import components from '@iooxa/components';
 ```
 
-Note that the npm module does not setup the [@iooxa/runtime](https://github.com/iooxa/runtime) store, nor does it register the components. See the [ink.ts](/ink.ts) file for what the built package does to `setup` the store and `register` the components.
+Note that the npm module does not setup the [@iooxa/runtime](https://github.com/iooxa/runtime) store, nor does it register the components. See the [iooxa.ts](/iooxa.ts) file for what the built package does to `setup` the store and `register` the components.
 
 ## Basic Components
 
