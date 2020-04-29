@@ -1,7 +1,10 @@
+<p align="center"><a href="https://iooxa.dev"><img src="https://iooxa.dev/images/logo.png" alt="iooxa.dev" width="150"></a></p>
+
 # @iooxa/components
 
 [![iooax/components on npm](https://img.shields.io/npm/v/@iooxa/components.svg)](https://www.npmjs.com/package/@iooxa/components)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/iooxa/components/blob/master/LICENSE)
+[![Documentation](https://img.shields.io/badge/iooxa.dev-Docs-green)](https://iooxa.dev)
 
 The goal of components is to provide web-components for interactive scientific writing, reactive documents and [explorable explanations](https://explorabl.es). This library provides ways to create, update and display variables as dynamic text and modify them with buttons, inputs, sliders, switches, and dropdowns.
 
@@ -64,36 +67,6 @@ Note that the npm module does not setup the [@iooxa/runtime](https://github.com/
 * r-input
 * r-visible
 
-## Variables
+## Documentation
 
-Variables need to be defined to drive your dynamic document, the `r-var` web component can specify a name, description and a value.
-
-```html
-<r-var name="x" value="1"></r-var>
-```
-
-These variables can be hidden in the DOM, which makes sense in most applications.
-
-### Reactive Variables
-
-You can also create reactive variables which gets and executes a user-defined string using [@iooxa/runtime](https://github.com/iooxa/runtime) with access to all other variables in the `scope`. Note here that the `:value` has a **semi-colon** to show that this should be executed to define the value.
-
-```html
-<r-var name="xSquared" :value="x * x"></r-var>
-```
-
-#### Properties of r-var:
-
-* **name**: The variable to name to in the state, must follow javascript naming conventions for variables.
-* **description**: The variable description, useful for alt-text.
-* **value**: The value of the variable.
-* **:value**: Function to evaluate to update the value. If present, this will update the value anytime the state is changed.
-* **format**: A d3-format string. See the [documentation](https://github.com/d3/d3-format).
-
-## Display Variables
-
-To display an element create an `r-display`, which will just render the named variable as text.
-
-```html
-<r-display bind="x"></r-display>
-```
+See https://iooxa.dev/components for full documentation.
