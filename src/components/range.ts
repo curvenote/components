@@ -40,9 +40,6 @@ class Range extends BaseComponent<typeof RangeSpec> {
     };
 
     const [small, big] = [Math.min(min, max), Math.max(min, max)];
-    if (small > 100 || big > 100 || step !== 1) {
-      return html`<input type="range" min="${small}" step="${step}" max="${big}" value="${value}" @input="${changeHandler}"></input>`;
-    }
     return html`<div><mwc-slider min="${small}" step="${step}" max="${big}" value="${value}" @input="${changeHandler}"></mwc-slider><div>`;
   }
 
