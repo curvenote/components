@@ -1,4 +1,6 @@
-import { actions, provider } from '@iooxa/runtime';
+import {
+  actions, setup, provider, types,
+} from '@iooxa/runtime';
 import Variable from './variable';
 import Display from './display';
 import Range from './range';
@@ -22,7 +24,8 @@ export function registerComponent(name: string, component: any) {
   customElements.define(name, component);
 }
 
-export const register = () => {
+export const register = (store: types.Store) => {
+  setup(store);
   customElements.define('r-var', Variable);
   registerComponent('r-display', Display);
   registerComponent('r-dynamic', Dynamic);
