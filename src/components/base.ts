@@ -1,10 +1,10 @@
+/* eslint-disable no-console */
 /* eslint-disable max-classes-per-file */
 import { LitElement, PropertyDeclaration, PropertyValues } from 'lit-element';
 import {
   types, actions, selectors, DEFAULT_SCOPE, utils, provider,
 } from '@iooxa/runtime';
 import { Unsubscribe } from 'redux';
-
 
 interface Constructable<T> {
   new(...args: any): T;
@@ -168,7 +168,6 @@ C extends Constructable<BaseComponent<T>>
       });
     });
 
-
     Object.entries(spec.events ?? {}).forEach(([key, evt]) => {
       // Add the property
       const onKeyEvent = `on${key.slice(0, 1).toUpperCase()}${key.slice(1)}Event`;
@@ -199,7 +198,6 @@ C extends Constructable<BaseComponent<T>>
     });
   };
 }
-
 
 export function onBindChange(
   updated: PropertyValues, component: BaseComponent<any>, eventKey?: string,

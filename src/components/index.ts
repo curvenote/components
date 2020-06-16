@@ -14,7 +14,6 @@ import Select from './select';
 import Input from './input';
 import Visible from './visible';
 
-
 export function registerComponent(name: string, component: any) {
   provider.dispatch(actions.createSpec(
     component.spec!.name,
