@@ -88,6 +88,8 @@
       $v_2$: <r-range bind="v2" :min="v1" max="2000" step="10" width="100px"></r-range>
       <r-display bind="v2"></r-display> m/s<br>
     </r-scope>
+    <p>Test a range with step less than 1</p>
+    <r-range min="0" max="1" step="0.01" width="100px"></r-range>
   </article>
 </body>
 </html>
