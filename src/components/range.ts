@@ -40,6 +40,7 @@ class Range extends BaseComponent<typeof RangeSpec> {
     };
 
     const [small, big] = [Math.min(min, max), Math.max(min, max)];
+    // See https://github.com/material-components/material-components-web-components/issues/1028
     if (step < 1) {
       return html`<div><mwc-slider min="${small}" max="${big}" value="${value}" @input="${changeHandler}"></mwc-slider><div>`;
     }
