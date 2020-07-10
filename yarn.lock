@@ -280,10 +280,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@iooxa/runtime@^0.2.4":
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/@iooxa/runtime/-/runtime-0.2.4.tgz#6e7f83311bdb86134e26ab2e8d0c919b6b316deb"
-  integrity sha512-UGfGhTeEfgXGvxa0IWtWmOD2G0sGZdC9HJd1njuy9dDY9zMXlhKga3nY+gV7TnYa8fWkbG9ERB6PozbefLCHAw==
+"@iooxa/runtime@^0.2.5":
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/@iooxa/runtime/-/runtime-0.2.5.tgz#2c8bc084f7b0f9857f20db0a6a3c7a2b2748d73e"
+  integrity sha512-HJ/9rLqUDweiQ9eF5NyBfhMzreH8Xx6gAcpezv7NX1GRK4Y5nHY8AJ6SYEHDEG3IqVfqxWFzJnRvxSzTerOGOw==
   dependencies:
     lodash.isequal "^4.5.0"
     redux "^4.0.5"

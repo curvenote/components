@@ -1,6 +1,6 @@
 {
   "name": "@iooxa/components",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Web components for interactive scientific writing, reactive documents and explorable explanations.",
   "main": "dist/index.js",
   "unpkg": "dist/iooxa.min.js",
@@ -58,7 +58,7 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
-    "@iooxa/runtime": "^0.2.4",
+    "@iooxa/runtime": "^0.2.5",
     "@material/mwc-button": "^0.17.2",
     "@material/mwc-checkbox": "^0.17.2",
     "@material/mwc-formfield": "^0.17.2",
