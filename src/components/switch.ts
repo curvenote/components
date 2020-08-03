@@ -1,5 +1,5 @@
 import '@material/mwc-switch';
-import { html, PropertyValues } from 'lit-element';
+import { html, PropertyValues, css } from 'lit-element';
 import { types } from '@iooxa/runtime';
 import { BaseComponent, withRuntime, onBindChange } from './base';
 import { HTMLElementEvent } from '../types';
@@ -24,6 +24,13 @@ class Switch extends BaseComponent<typeof SwitchSpec> {
     const { value, label } = this.$runtime!.state;
     const change = (evt: HTMLElementEvent<HTMLInputElement>) => { this.$runtime?.dispatchEvent('change', [evt.target.checked]); };
     return html`<mwc-formfield label="${label}"><mwc-switch ?checked=${value} @change=${change}></mwc-switch></mwc-formfield>`;
+  }
+
+  static get styles() {
+    return css`
+    :host{
+      white-space: normal;
+    }`;
   }
 }
 
