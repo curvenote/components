@@ -1,5 +1,5 @@
 import '@material/mwc-button';
-import { html } from 'lit-element';
+import { html, css } from 'lit-element';
 import { types } from '@iooxa/runtime';
 import { BaseComponent, withRuntime } from './base';
 
@@ -38,6 +38,13 @@ class Button extends BaseComponent<typeof ButtonSpec> {
       raised, outlined, unelevated, dense,
     } = this;
     return html`<mwc-button ?raised="${raised}" ?outlined="${outlined}" ?unelevated="${unelevated}" ?dense="${dense}" ?disabled="${disabled}" label="${label}" @click="${() => this.$runtime?.dispatchEvent('click')}"></mwc-button>`;
+  }
+
+  static get styles() {
+    return css`
+    :host{
+      white-space: normal;
+    }`;
   }
 }
 
