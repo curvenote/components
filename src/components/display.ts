@@ -8,8 +8,8 @@ export const DisplaySpec = {
   name: 'display',
   description: 'Inline display of values',
   properties: {
-    value: { type: types.PropTypes.number, default: NaN },
-    format: { type: types.PropTypes.string, default: DEFAULT_FORMAT },
+    value: { type: types.PropTypes.number, default: NaN, description: 'Value of the display' },
+    format: { type: types.PropTypes.string, default: DEFAULT_FORMAT, description: 'Format of the variable' },
     transform: {
       type: types.PropTypes.string, default: '', args: ['value'], has: { func: true, value: false },
     },
