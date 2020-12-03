@@ -6,7 +6,7 @@ r-var {
   background-color: #EFEFEF;
   width: fit-content;
   padding: 5px;
-  margin: 5px 0;
+  user-select: none;
 }
 r-dynamic {
   color: var(--mdc-theme-secondary, #46F);
