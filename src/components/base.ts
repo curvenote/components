@@ -111,7 +111,7 @@ The wrapper inserts:
 */
 export function withRuntime<
 T extends types.DefineSpec,
-C extends Constructable<BaseComponent<T>>
+C extends Constructable<BaseComponent<T>>,
   >(specDefinition: T, additionalProperties: { [key: string]: PropertyDeclaration } = {}) {
   return (ComponentClass: C) => {
     const litProperties = { ...additionalProperties };
@@ -137,7 +137,7 @@ C extends Constructable<BaseComponent<T>>
             this.removeAttribute(prop.attribute);
             const prevFunc = this.$runtime?.component.properties[key].func;
             this.$runtime?.setProperties(
-              { [key]: { value: value ?? prop.default, func: prevFunc } }
+              { [key]: { value: value ?? prop.default, func: prevFunc } },
             );
           } else {
             this.setAttribute(prop.attribute, String(value));

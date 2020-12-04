@@ -2,7 +2,7 @@ import {
   html, PropertyValues, css,
 } from 'lit-element';
 import { drag, DragBehavior } from 'd3-drag';
-import { select, event } from 'd3-selection';
+import { select } from 'd3-selection';
 import { types, DEFAULT_FORMAT } from '@iooxa/runtime';
 import throttle from 'lodash.throttle';
 import { THROTTLE_SKIP } from '../types';
@@ -60,7 +60,7 @@ class Dynamic extends BaseComponent<typeof DynamicSpec> {
     const node = this as Element;
     const bodyClassList = document.getElementsByTagName('BODY')[0].classList;
 
-    this.#drag = drag().on('start', () => {
+    this.#drag = drag().on('start', (event) => {
       event.sourceEvent.preventDefault();
       event.sourceEvent.stopPropagation();
       this.#dragging = true; // Hides the "drag" tool-tip
@@ -71,7 +71,7 @@ class Dynamic extends BaseComponent<typeof DynamicSpec> {
       this.#dragging = false;
       bodyClassList.remove(CURSOR_COL_RESIZE);
       this.requestUpdate();
-    }).on('drag', () => {
+    }).on('drag', (event) => {
       event.sourceEvent.preventDefault();
       event.sourceEvent.stopPropagation();
 
