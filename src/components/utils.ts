@@ -12,7 +12,7 @@ export function getLabelsAndValues(labelsString: string, valuesString: string) {
 }
 
 export function getValueOrTransform(
-  $runtime: types.ComponentShortcut<{transform: any, value: number}> | null,
+  $runtime: types.ComponentShortcut<{ transform: any, value: number }> | null,
 ) {
   const { transform, value } = $runtime!.state;
   const transformFunc = $runtime!.component?.properties.transform.func ?? '';
