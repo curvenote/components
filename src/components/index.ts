@@ -1,6 +1,6 @@
 import {
   actions, setup, provider, types,
-} from '@iooxa/runtime';
+} from '@curvenote/runtime';
 import Variable from './variable';
 import Display from './display';
 import Range from './range';

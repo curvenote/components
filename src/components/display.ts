@@ -1,5 +1,5 @@
 import { html, PropertyValues } from 'lit-element';
-import { types, DEFAULT_FORMAT } from '@iooxa/runtime';
+import { types, DEFAULT_FORMAT } from '@curvenote/runtime';
 import { formatter } from '../utils';
 import { BaseComponent, withRuntime, onBindChange } from './base';
 import { getValueOrTransform } from './utils';

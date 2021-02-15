@@ -3,7 +3,7 @@
 import { LitElement, PropertyDeclaration, PropertyValues } from 'lit-element';
 import {
   types, actions, selectors, DEFAULT_SCOPE, utils, provider,
-} from '@iooxa/runtime';
+} from '@curvenote/runtime';
 import { Unsubscribe } from 'redux';
 
 interface Constructable<T> {

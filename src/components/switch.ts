@@ -1,6 +1,6 @@
 import '@material/mwc-switch';
 import { html, PropertyValues, css } from 'lit-element';
-import { types } from '@iooxa/runtime';
+import { types } from '@curvenote/runtime';
 import { BaseComponent, withRuntime, onBindChange } from './base';
 import { HTMLElementEvent } from '../types';
 

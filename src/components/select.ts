@@ -1,7 +1,7 @@
 import '@material/mwc-select';
 import '@material/mwc-list/mwc-list-item';
 import { html, PropertyValues } from 'lit-element';
-import { types } from '@iooxa/runtime';
+import { types } from '@curvenote/runtime';
 import { BaseComponent, withRuntime, onBindChange } from './base';
 import { getLabelsAndValues } from './utils';
 

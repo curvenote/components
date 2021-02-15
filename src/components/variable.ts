@@ -1,7 +1,7 @@
 import { html } from 'lit-element';
 import {
   actions, types, VariableSpec, provider,
-} from '@iooxa/runtime';
+} from '@curvenote/runtime';
 import { formatter } from '../utils';
 import { BaseSubscribe, withRuntime } from './base';
 

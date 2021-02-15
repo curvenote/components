@@ -294,6 +294,16 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@curvenote/runtime@^0.2.7":
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/@curvenote/runtime/-/runtime-0.2.7.tgz#6d395fc3dd54c24476435b4a18da9572e5354c86"
+  integrity sha512-I2AxkejO7BwOR5FDU+dYRcXZLXmr8oXfMRviYnCEKwth9KcLiOALG2gh4FRO+tg1oLSy3D8pW+lv+AuodJguWA==
+  dependencies:
+    lodash.isequal "^4.5.0"
+    redux "^4.0.5"
+    redux-thunk "^2.3.0"
+    uuid "^8.3.1"
+
 "@eslint/eslintrc@^0.2.1":
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-0.2.1.tgz#f72069c330461a06684d119384435e12a5d76e3c"
@@ -309,16 +319,6 @@
     lodash "^4.17.19"
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
-
-"@iooxa/runtime@^0.2.7":
-  version "0.2.7"
-  resolved "https://registry.yarnpkg.com/@iooxa/runtime/-/runtime-0.2.7.tgz#ff88e4aba4e3b91f26b8a742e81481a11d937cc0"
-  integrity sha512-gb8Q4Oj+wjuXxgoWKmJaQfdmiclKPkE+9GM6di53qNjJYAlYwoVvvezZ2AjN5aRCOMBmxyuiUDWG4RTGg6CFXQ==
-  dependencies:
-    lodash.isequal "^4.5.0"
-    redux "^4.0.5"
-    redux-thunk "^2.3.0"
-    uuid "^8.3.1"
 
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"

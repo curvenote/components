@@ -7,17 +7,17 @@
 </head>
 <body>
   <article>
-    <h1>@iooxa/components</h1>
+    <h1>@curvenote/components</h1>
     <p>
-      The goal of <code>@iooxa/components</code> is to provide web-components for interactive scientific writing, reactive documents and <a href="//explorabl.es/">explorable explanations</a>.
-      Included in <code>@iooxa/components</code> are ways to create, update and display variables as text, inputs, sliders and switches.
+      The goal of <code>@curvenote/components</code> is to provide web-components for interactive scientific writing, reactive documents and <a href="//explorabl.es/">explorable explanations</a>.
+      Included in <code>@curvenote/components</code> are ways to create, update and display variables as text, inputs, sliders and switches.
     </p>
 
     <h2>Tangled Cookies</h2>
     <r-scope name="untangle">
       <r-var name="simple" value="false" type="Boolean"></r-var>
       <p>
-        <code>@iooxa/components</code> are heavily inspired by <a href="http://worrydream.com/Tangle/guide.html">tangle.js</a>, updated to be use web-components!
+        <code>@curvenote/components</code> are heavily inspired by <a href="http://worrydream.com/Tangle/guide.html">tangle.js</a>, updated to be use web-components!
         This means you can declaratively write your variables and how to display them in <code>html</code> markup.
         To get an idea of what that looks like, let's take the canonical example of <emph>Tangled Cookies</emph> - a simple reactive document to encourage you to not eat more than <r-action :click="{'demo1.cookies':42, 'demo2.cookies':42, simple:false}">42 cookies</r-action> in one day.
       </p>

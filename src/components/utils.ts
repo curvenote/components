@@ -1,4 +1,4 @@
-import { types } from '@iooxa/runtime';
+import { types } from '@curvenote/runtime';
 
 export function getLabelsAndValues(labelsString: string, valuesString: string) {
   const labels = labelsString === '' ? String(valuesString).split(',') : String(labelsString).split(',');

@@ -1,14 +1,14 @@
-<p align="center"><a href="https://iooxa.dev"><img src="https://iooxa.dev/images/logo.png" alt="iooxa.dev" width="150"></a></p>
+<p align="center"><a href="https://curvenote.dev"><img src="https://curvenote.dev/images/logo.png" alt="curvenote.dev" width="150"></a></p>
 
-# @iooxa/components
+# @curvenote/components
 
-[![iooax/components on npm](https://img.shields.io/npm/v/@iooxa/components.svg)](https://www.npmjs.com/package/@iooxa/components)
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/iooxa/components/blob/master/LICENSE)
-[![Documentation](https://img.shields.io/badge/iooxa.dev-Docs-green)](https://iooxa.dev)
+[![iooax/components on npm](https://img.shields.io/npm/v/@curvenote/components.svg)](https://www.npmjs.com/package/@curvenote/components)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/curvenote/components/blob/master/LICENSE)
+[![Documentation](https://img.shields.io/badge/curvenote.dev-Docs-green)](https://curvenote.dev)
 
 The goal of components is to provide web-components for interactive scientific writing, reactive documents and [explorable explanations](https://explorabl.es). This library provides ways to create, update and display variables as dynamic text and modify them with buttons, inputs, sliders, switches, and dropdowns.
 
-The [iooxa/components](https://iooxa.dev) project is heavily inspired by [tangle.js](http://worrydream.com/Tangle/guide.html), re-imagined to use [web-components](https://www.webcomponents.org/)!
+The [curvenote/components](https://curvenote.dev) project is heavily inspired by [tangle.js](http://worrydream.com/Tangle/guide.html), re-imagined to use [web-components](https://www.webcomponents.org/)!
 This means you can declaratively write your variables and how to display them in `html` markup.
 To get an idea of what that looks like, let's take the canonical example of *Tangled Cookies* - a simple reactive document.
 
@@ -35,22 +35,22 @@ Ink is based on web-components, which creates custom HTML tags so that they can 
 To get started, copy the built javascript file to the head of your page:
 
 ```html
-<script src="https://unpkg.com/@iooxa/components"></script>
+<script src="https://unpkg.com/@curvenote/components"></script>
 ```
 
-You can also download the [latest release](https://github.com/iooxa/components/releases) from GitHub. If you are running this without a web server, ensure the script has `charset="utf-8"` in the script tag. You can also [install from npm](https://www.npmjs.com/package/@iooxa/components):
+You can also download the [latest release](https://github.com/curvenote/components/releases) from GitHub. If you are running this without a web server, ensure the script has `charset="utf-8"` in the script tag. You can also [install from npm](https://www.npmjs.com/package/@curvenote/components):
 
 ```bash
->> npm install @iooxa/components
+>> npm install @curvenote/components
 ```
 
 You should then be able to extend the package as you see fit:
 
 ```javascript
-import components from '@iooxa/components';
+import components from '@curvenote/components';
 ```
 
-Note that the npm module does not setup the [@iooxa/runtime](https://github.com/iooxa/runtime) store, nor does it register the components. See the [iooxa.ts](/iooxa.ts) file for what the built package does to `setup` the store and `register` the components.
+Note that the npm module does not setup the [@curvenote/runtime](https://github.com/curvenote/runtime) store, nor does it register the components. See the [curvenote.ts](/curvenote.ts) file for what the built package does to `setup` the store and `register` the components.
 
 ## Basic Components
 
@@ -69,4 +69,4 @@ Note that the npm module does not setup the [@iooxa/runtime](https://github.com/
 
 ## Documentation
 
-See https://iooxa.dev/components for full documentation.
+See https://curvenote.dev/components for full documentation.

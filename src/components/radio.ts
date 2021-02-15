@@ -1,6 +1,6 @@
 import '@material/mwc-radio';
 import { html, css, PropertyValues } from 'lit-element';
-import { types } from '@iooxa/runtime';
+import { types } from '@curvenote/runtime';
 import { BaseComponent, withRuntime, onBindChange } from './base';
 import { getLabelsAndValues } from './utils';
 

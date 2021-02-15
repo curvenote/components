@@ -1,7 +1,7 @@
 import '@material/mwc-formfield';
 import '@material/mwc-checkbox';
 import { html, PropertyValues } from 'lit-element';
-import { types } from '@iooxa/runtime';
+import { types } from '@curvenote/runtime';
 import { BaseComponent, withRuntime, onBindChange } from './base';
 import { HTMLElementEvent } from '../types';
 

@@ -1,6 +1,6 @@
 import '@material/mwc-slider';
 import { html, PropertyValues, css } from 'lit-element';
-import { types } from '@iooxa/runtime';
+import { types } from '@curvenote/runtime';
 import throttle from 'lodash.throttle';
 import { BaseComponent, withRuntime, onBindChange } from './base';
 import { HTMLElementEvent, THROTTLE_SKIP } from '../types';

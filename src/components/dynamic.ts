@@ -3,7 +3,7 @@ import {
 } from 'lit-element';
 import { drag, DragBehavior } from 'd3-drag';
 import { select } from 'd3-selection';
-import { types, DEFAULT_FORMAT } from '@iooxa/runtime';
+import { types, DEFAULT_FORMAT } from '@curvenote/runtime';
 import throttle from 'lodash.throttle';
 import { THROTTLE_SKIP } from '../types';
 import { BaseComponent, withRuntime, onBindChange } from './base';

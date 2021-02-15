@@ -1,6 +1,6 @@
 import '@material/mwc-button';
 import { html, css } from 'lit-element';
-import { types } from '@iooxa/runtime';
+import { types } from '@curvenote/runtime';
 import { BaseComponent, withRuntime } from './base';
 
 export const ButtonSpec = {

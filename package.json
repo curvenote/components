@@ -1,9 +1,9 @@
 {
-  "name": "@iooxa/components",
+  "name": "@curvenote/components",
   "version": "0.2.7",
   "description": "Web components for interactive scientific writing, reactive documents and explorable explanations.",
   "main": "dist/index.js",
-  "unpkg": "dist/iooxa.min.js",
+  "unpkg": "dist/curvenote.min.js",
   "types": "dist/index.d.ts",
   "keywords": [
     "explorable explanations",
@@ -18,19 +18,23 @@
   "publishConfig": {
     "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/curvenote/components.git"
+  },
+  "bugs": {
+    "url": "https://github.com/curvenote/components/issues"
+  },
+  "homepage": "https://curvenote.dev/components",
   "scripts": {
     "test": "jest",
     "lint": "eslint \"src/**/*.ts\" -c .eslintrc.json",
     "clean": "rm -rf dist",
-    "link": "yarn unlink; yarn link; yarn link @iooxa/runtime",
+    "link": "yarn unlink; yarn link; yarn link @curvenote/runtime",
     "start": "webpack serve --config webpack.dev.js",
     "build-dev": "webpack --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js; tsc; cp src/index.css dist/iooxa.css; rm -rf dist/src",
+    "build": "webpack --config webpack.prod.js; tsc; cp src/index.css dist/curvenote.css; rm -rf dist/src",
     "prepublishOnly": "yarn run clean; yarn run build;"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/iooxa/components.git"
   },
   "devDependencies": {
     "@types/d3-drag": "^2.0.0",
@@ -62,7 +66,7 @@
     "webpack-merge": "^5.4.0"
   },
   "dependencies": {
-    "@iooxa/runtime": "^0.2.7",
+    "@curvenote/runtime": "^0.2.7",
     "@material/mwc-button": "^0.20.0",
     "@material/mwc-checkbox": "^0.20.0",
     "@material/mwc-formfield": "^0.20.0",
@@ -82,9 +86,5 @@
     "redux-thunk": "^2.3.0",
     "uuid": "^8.3.1"
   },
-  "bugs": {
-    "url": "https://github.com/iooxa/components/issues"
-  },
-  "homepage": "https://iooxa.dev/components",
   "sideEffects": false
 }

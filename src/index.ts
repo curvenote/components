@@ -1,7 +1,7 @@
 import {
   LitElement, html, css, svg, PropertyDeclaration, PropertyValues,
 } from 'lit-element';
-import { DEFAULT_FORMAT } from '@iooxa/runtime';
+import { DEFAULT_FORMAT } from '@curvenote/runtime';
 import { render as renderHTML } from 'lit-html';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 import throttle from 'lodash.throttle';

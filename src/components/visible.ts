@@ -1,5 +1,5 @@
 import { html } from 'lit-element';
-import { types } from '@iooxa/runtime';
+import { types } from '@curvenote/runtime';
 import { BaseComponent, withRuntime } from './base';
 
 export const VisibleSpec = {
