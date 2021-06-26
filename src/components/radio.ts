@@ -1,4 +1,3 @@
-import '@material/mwc-radio';
 import { html, css, PropertyValues } from 'lit-element';
 import { types } from '@curvenote/runtime';
 import { BaseComponent, withRuntime, onBindChange } from './base';
@@ -19,12 +18,15 @@ export const RadioSpec = {
 
 @withRuntime(RadioSpec, { bind: { type: String, reflect: true } })
 class Radio extends BaseComponent<typeof RadioSpec> {
-  updated(updated: PropertyValues) { onBindChange(updated, this, 'change'); }
+  updated(updated: PropertyValues) {
+    onBindChange(updated, this, 'change');
+  }
 
   static get styles() {
     return css`
-      mwc-formfield {
-        display: block;
+      label,
+      input {
+        cursor: pointer;
       }
     `;
   }
@@ -35,7 +37,15 @@ class Radio extends BaseComponent<typeof RadioSpec> {
     const changeHandler = (newValue: string) => () => {
       this.$runtime?.dispatchEvent('change', [newValue]);
     };
-    return labels.map((label, i) => html`<mwc-formfield label="${label}"><mwc-radio name=${this.$runtime!.id}" ?checked=${String(value) === values[i]} @change=${changeHandler(values[i])}></mwc-radio></mwc-formfield>`);
+    const name = this.$runtime!.id;
+    return labels.map((label, i) => {
+      const id = name + '-' + label;
+      return html`<p>
+        <input type="radio" id="${id}" name=${name}" .checked=${String(value) === values[i]}
+        @change=${changeHandler(values[i])}>
+        <label for=${id}>${label}</label>
+      </p>`;
+    });
   }
 }
 

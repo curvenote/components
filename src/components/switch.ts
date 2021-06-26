@@ -1,4 +1,3 @@
-import '@material/mwc-switch';
 import { html, PropertyValues, css } from 'lit-element';
 import { types } from '@curvenote/runtime';
 import { BaseComponent, withRuntime, onBindChange } from './base';
@@ -18,19 +17,81 @@ export const SwitchSpec = {
 
 @withRuntime(SwitchSpec, { bind: { type: String, reflect: true } })
 class Switch extends BaseComponent<typeof SwitchSpec> {
-  updated(updated: PropertyValues) { onBindChange(updated, this, 'change'); }
-
-  render() {
-    const { value, label } = this.$runtime!.state;
-    const change = (evt: HTMLElementEvent<HTMLInputElement>) => { this.$runtime?.dispatchEvent('change', [evt.target.checked]); };
-    return html`<mwc-formfield label="${label}"><mwc-switch ?checked=${value} @change=${change}></mwc-switch></mwc-formfield>`;
+  updated(updated: PropertyValues) {
+    onBindChange(updated, this, 'change');
   }
 
   static get styles() {
     return css`
-    :host{
-      white-space: normal;
-    }`;
+      .switch {
+        position: relative;
+        display: inline-block;
+        top: -3px;
+        width: 40px;
+        height: 24px;
+      }
+      input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.15s ease;
+        border-radius: 30px;
+      }
+      .slider:before {
+        position: absolute;
+        content: '';
+        height: 16px;
+        width: 16px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: 0.15s ease;
+        border-radius: 50%;
+      }
+      input:checked + .slider {
+        background-color: var(--mdc-theme-secondary);
+      }
+      .switch:hover .slider {
+        filter: brightness(90%);
+      }
+      input:focus + .slider {
+        box-shadow: 0 0 3px var(--mdc-theme-secondary);
+      }
+      input:checked + .slider:before {
+        transform: translateX(16px);
+      }
+      .label {
+        cursor: pointer;
+      }
+    `;
+  }
+
+  render() {
+    const { value, label } = this.$runtime!.state;
+    const change = (evt: HTMLElementEvent<HTMLInputElement>) => {
+      this.$runtime?.dispatchEvent('change', [evt.target.checked]);
+    };
+
+    return html`<label class="switch" for="${this.$runtime!.id}">
+        <input
+          type="checkbox"
+          id="${this.$runtime!.id}"
+          name="${this.$runtime!.id}"
+          .checked=${value}
+          @change=${change}
+        />
+        <span class="slider"></span>
+      </label>
+      <label class="label" for="${this.$runtime!.id}">${label}</label>`;
   }
 }
 

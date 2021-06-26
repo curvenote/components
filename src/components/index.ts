@@ -1,6 +1,4 @@
-import {
-  actions, setup, provider, types,
-} from '@curvenote/runtime';
+import { actions, setup, provider, types } from '@curvenote/runtime';
 import Variable from './variable';
 import Display from './display';
 import Range from './range';
@@ -15,11 +13,9 @@ import Input from './input';
 import Visible from './visible';
 
 export function registerComponent(name: string, component: any) {
-  provider.dispatch(actions.createSpec(
-    component.spec!.name,
-    component.spec!.properties,
-    component.spec!.events,
-  ));
+  provider.dispatch(
+    actions.createSpec(component.spec!.name, component.spec!.properties, component.spec!.events),
+  );
   customElements.define(name, component);
 }
 

@@ -1,5 +1,3 @@
-import '@material/mwc-select';
-import '@material/mwc-list/mwc-list-item';
 import { html, PropertyValues } from 'lit-element';
 import { types } from '@curvenote/runtime';
 import { BaseComponent, withRuntime, onBindChange } from './base';
@@ -21,18 +19,26 @@ export const SelectSpec = {
 
 @withRuntime(SelectSpec, { bind: { type: String, reflect: true } })
 class Select extends BaseComponent<typeof SelectSpec> {
-  updated(updated: PropertyValues) { onBindChange(updated, this, 'change'); }
+  updated(updated: PropertyValues) {
+    onBindChange(updated, this, 'change');
+  }
 
   render() {
-    const {
-      label, value, labels: labelsString, values: valuesString,
-    } = this.$runtime!.state;
+    const { label, value, labels: labelsString, values: valuesString } = this.$runtime!.state;
     const { labels, values } = getLabelsAndValues(labelsString, valuesString);
     const changeHandler = (evt: any) => {
-      this.$runtime?.dispatchEvent('change', [values[evt.detail.index]]);
+      console.log(evt.target.value);
+      this.$runtime?.dispatchEvent('change', [evt.target.value]);
     };
 
-    return html`<mwc-select label="${label}" @selected=${changeHandler}>${labels.map((item, i) => html`<mwc-list-item value=${values[i]} ?selected=${String(value) === values[i]}>${item}</mwc-list-item>`)}</mwc-select>`;
+    return html`<select @change=${changeHandler}>
+      ${labels.map(
+        (item, i) =>
+          html`<option value=${values[i]} .selected=${String(value) === values[i]}>
+            ${item}
+          </option>`,
+      )}
+    </select>`;
   }
 }
 

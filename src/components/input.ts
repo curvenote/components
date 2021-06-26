@@ -1,4 +1,3 @@
-import '@material/mwc-textfield';
 import { html, PropertyValues } from 'lit-element';
 import { types } from '@curvenote/runtime';
 import { HTMLElementEvent } from '../types';
@@ -18,17 +17,19 @@ export const InputSpec = {
 
 @withRuntime(InputSpec, { bind: { type: String, reflect: true } })
 class Input extends BaseComponent<typeof InputSpec> {
-  updated(updated: PropertyValues) { onBindChange(updated, this, 'change'); }
+  updated(updated: PropertyValues) {
+    onBindChange(updated, this, 'change');
+  }
 
   render() {
-    const { label, value } = this.$runtime!.state;
+    const { value } = this.$runtime!.state;
 
     const changeHandler = (event: HTMLElementEvent<HTMLInputElement>) => {
       const newValue = event.target.value;
       this.$runtime?.dispatchEvent('change', [newValue]);
     };
 
-    return html`<mwc-textfield label="${label}" value=${value} @change="${changeHandler}"></mwc-textfield>`;
+    return html`<input type="text" .value=${value} @change="${changeHandler}"></input>`;
   }
 }
 
