@@ -24,10 +24,9 @@ class Select extends BaseComponent<typeof SelectSpec> {
   }
 
   render() {
-    const { label, value, labels: labelsString, values: valuesString } = this.$runtime!.state;
+    const { value, labels: labelsString, values: valuesString } = this.$runtime!.state;
     const { labels, values } = getLabelsAndValues(labelsString, valuesString);
     const changeHandler = (evt: any) => {
-      console.log(evt.target.value);
       this.$runtime?.dispatchEvent('change', [evt.target.value]);
     };
 

@@ -39,7 +39,7 @@ class Radio extends BaseComponent<typeof RadioSpec> {
     };
     const name = this.$runtime!.id;
     return labels.map((label, i) => {
-      const id = name + '-' + label;
+      const id = `${name}-${label}`;
       return html`<p>
         <input type="radio" id="${id}" name=${name}" .checked=${String(value) === values[i]}
         @change=${changeHandler(values[i])}>
