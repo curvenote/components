@@ -9,9 +9,16 @@ export const DisplaySpec = {
   description: 'Inline display of values',
   properties: {
     value: { type: types.PropTypes.number, default: NaN, description: 'Value of the display' },
-    format: { type: types.PropTypes.string, default: DEFAULT_FORMAT, description: 'Format of the variable' },
+    format: {
+      type: types.PropTypes.string,
+      default: DEFAULT_FORMAT,
+      description: 'Format of the variable',
+    },
     transform: {
-      type: types.PropTypes.string, default: '', args: ['value'], has: { func: true, value: false },
+      type: types.PropTypes.string,
+      default: '',
+      args: ['value'],
+      has: { func: true, value: false },
     },
   },
   events: {},
@@ -19,7 +26,9 @@ export const DisplaySpec = {
 
 @withRuntime(DisplaySpec, { bind: { type: String, reflect: true } })
 class Display extends BaseComponent<typeof DisplaySpec> {
-  updated(updated: PropertyValues) { onBindChange(updated, this); }
+  updated(updated: PropertyValues) {
+    onBindChange(updated, this);
+  }
 
   render() {
     const { format } = this.$runtime!.state;

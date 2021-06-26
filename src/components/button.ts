@@ -1,4 +1,3 @@
-import '@material/mwc-button';
 import { html, css } from 'lit-element';
 import { types } from '@curvenote/runtime';
 import { BaseComponent, withRuntime } from './base';
@@ -16,35 +15,36 @@ export const ButtonSpec = {
 };
 
 const litProps = {
-  raised: { type: Boolean, reflect: true },
-  outlined: { type: Boolean, reflect: true },
-  unelevated: { type: Boolean, reflect: true },
   dense: { type: Boolean, reflect: true },
 };
 
 @withRuntime(ButtonSpec, litProps)
 class Button extends BaseComponent<typeof ButtonSpec> {
-  raised = false;
-
-  outlined = false;
-
-  unelevated = false;
-
   dense = false;
 
   render() {
     const { label, disabled } = this.$runtime!.state;
-    const {
-      raised, outlined, unelevated, dense,
-    } = this;
-    return html`<mwc-button ?raised="${raised}" ?outlined="${outlined}" ?unelevated="${unelevated}" ?dense="${dense}" ?disabled="${disabled}" label="${label}" @click="${() => this.$runtime?.dispatchEvent('click')}"></mwc-button>`;
+    const { dense } = this;
+    return html`<button
+      type="button"
+      class="${dense ? 'dense' : ''}"
+      ?disabled="${disabled}"
+      @click="${() => this.$runtime?.dispatchEvent('click')}"
+    >
+      ${label}
+    </button>`;
   }
 
   static get styles() {
     return css`
-    :host{
-      white-space: normal;
-    }`;
+      button {
+        cursor: pointer;
+        padding: 5px;
+      }
+      button.dense {
+        padding: 0px;
+      }
+    `;
   }
 }
 

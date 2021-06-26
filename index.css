@@ -1,5 +1,5 @@
 body {
-  --mdc-theme-primary: #E99F4B;
+  --mdc-theme-primary: #e99f4b;
   --mdc-theme-secondary: #46f;
 }
 article {
@@ -7,9 +7,13 @@ article {
   padding-left: 10px;
   padding-right: 250px;
   position: relative;
-  width: calc( max( min( 100vw , 790px ), 500px ) );
+  width: calc(max(min(100vw, 790px), 500px));
 }
-h1, h2, h3, h4, h5{
+h1,
+h2,
+h3,
+h4,
+h5 {
   font-family: 'Oswald', sans-serif;
 }
 p {
@@ -20,7 +24,7 @@ p {
   line-height: 1.8;
   margin-top: 20px;
   margin-bottom: 20px;
-  color: #4D4D4D;
+  color: #4d4d4d;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
 }

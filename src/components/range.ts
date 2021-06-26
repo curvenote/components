@@ -1,5 +1,4 @@
-import '@material/mwc-slider';
-import { html, PropertyValues, css } from 'lit-element';
+import { css, html, PropertyValues } from 'lit-element';
 import { types } from '@curvenote/runtime';
 import throttle from 'lodash.throttle';
 import { BaseComponent, withRuntime, onBindChange } from './base';
@@ -21,17 +20,28 @@ export const RangeSpec = {
 
 @withRuntime(RangeSpec, { bind: { type: String, reflect: true } })
 class Range extends BaseComponent<typeof RangeSpec> {
-  updated(updated: PropertyValues) { onBindChange(updated, this, 'change'); }
+  updated(updated: PropertyValues) {
+    onBindChange(updated, this, 'change');
+  }
 
   #throttled: ((v: number) => void) | null = null;
 
+  static get styles() {
+    return css`
+      input {
+        cursor: pointer;
+      }
+    `;
+  }
+
   render() {
-    const {
-      value, min, max, step,
-    } = this.$runtime!.state;
+    const { value, min, max, step } = this.$runtime!.state;
 
     if (this.#throttled == null) {
-      this.#throttled = throttle((val: number) => this.$runtime?.dispatchEvent('change', [val]), THROTTLE_SKIP);
+      this.#throttled = throttle(
+        (val: number) => this.$runtime?.dispatchEvent('change', [val]),
+        THROTTLE_SKIP,
+      );
     }
 
     const changeHandler = (event: HTMLElementEvent<HTMLInputElement>) => {
@@ -39,26 +49,14 @@ class Range extends BaseComponent<typeof RangeSpec> {
       this.#throttled!(newValue);
     };
 
-    const [small, big] = [Math.min(min, max), Math.max(min, max)];
-    // See https://github.com/material-components/material-components-web-components/issues/1028
-    if (step < 1) {
-      return html`<div><mwc-slider min="${small}" max="${big}" value="${value}" @input="${changeHandler}"></mwc-slider><div>`;
-    }
-    return html`<div><mwc-slider min="${small}" step="${step}" max="${big}" value="${value}" @input="${changeHandler}"></mwc-slider><div>`;
-  }
-
-  static get styles() {
-    return css`
-    :host{
-      margin: 5px;
-      display: inline-block;
-      white-space: normal;
-      margin-top: -15px;
-    }
-    mwc-slider{
-      height: 0;
-      transform: translate(0, -31px);
-    }`;
+    return html`<input
+      type="range"
+      min="${min}"
+      max="${max}"
+      step="${step}"
+      .value="${value}"
+      @input="${changeHandler}"
+    />`;
   }
 }
 

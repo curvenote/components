@@ -1,7 +1,5 @@
 import { html } from 'lit-element';
-import {
-  actions, types, VariableSpec, provider,
-} from '@curvenote/runtime';
+import { actions, types, VariableSpec, provider } from '@curvenote/runtime';
 import { formatter } from '../utils';
 import { BaseSubscribe, withRuntime } from './base';
 
@@ -28,23 +26,26 @@ class Variable extends BaseSubscribe {
     super.connectedCallback();
     const { scope } = this;
     const name = this.getAttribute('name') as string;
-    this.$runtime = provider.dispatch(actions.createVariable(
-      `${scope}.${name}`,
-      this.getAttribute('value') ?? VariableSpec.properties.value.default,
-      this.getAttribute(':value') ?? '',
-      {
-        description: this.getAttribute('description') ?? '',
-        type: this.getAttribute('type') as types.PropTypes ?? VariableSpec.properties.type.default,
-        format: this.getAttribute('format') ?? VariableSpec.properties.format.default as types.PropTypes,
-      },
-    ));
+    this.$runtime = provider.dispatch(
+      actions.createVariable(
+        `${scope}.${name}`,
+        this.getAttribute('value') ?? VariableSpec.properties.value.default,
+        this.getAttribute(':value') ?? '',
+        {
+          description: this.getAttribute('description') ?? '',
+          type:
+            (this.getAttribute('type') as types.PropTypes) ?? VariableSpec.properties.type.default,
+          format:
+            this.getAttribute('format') ??
+            (VariableSpec.properties.format.default as types.PropTypes),
+        },
+      ),
+    );
     this.subscribe(this.$runtime.id);
   }
 
   render() {
-    const {
-      name, value, current, func, format, derived,
-    } = this.$runtime!.state;
+    const { name, value, current, func, format, derived } = this.$runtime!.state;
     // TODO: show error if name is not defined
     const currentStr = toString(current, format);
     if (derived) {

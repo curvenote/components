@@ -1,29 +1,29 @@
 r-var {
   display: block;
-  color: #D46485;
-  border: 1px solid #D4D4D4;
+  color: #d46485;
+  border: 1px solid #d4d4d4;
   border-radius: 2px;
-  background-color: #EFEFEF;
+  background-color: #efefef;
   width: fit-content;
   padding: 5px;
   user-select: none;
 }
 r-dynamic {
-  color: var(--mdc-theme-secondary, #46F);
-  border-bottom: 1px dashed var(--mdc-theme-secondary, #46F);
+  color: var(--mdc-theme-secondary, #46f);
+  border-bottom: 1px dashed var(--mdc-theme-secondary, #46f);
 }
 r-action {
   cursor: pointer;
-  color: var(--mdc-theme-secondary, #46F);
-  border-bottom: 1px solid var(--mdc-theme-secondary, #46F);
+  color: var(--mdc-theme-secondary, #46f);
+  border-bottom: 1px solid var(--mdc-theme-secondary, #46f);
 }
 r-action.noclick {
   cursor: unset;
   border-bottom: unset;
 }
-.cursor-move{
+.cursor-move {
   cursor: move;
 }
-.cursor-col-resize{
+.cursor-col-resize {
   cursor: col-resize;
 }

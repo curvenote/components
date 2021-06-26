@@ -1,13 +1,11 @@
 /* eslint-disable no-console */
 /* eslint-disable max-classes-per-file */
 import { LitElement, PropertyDeclaration, PropertyValues } from 'lit-element';
-import {
-  types, actions, selectors, DEFAULT_SCOPE, utils, provider,
-} from '@curvenote/runtime';
+import { types, actions, selectors, DEFAULT_SCOPE, utils, provider } from '@curvenote/runtime';
 import { Unsubscribe } from 'redux';
 
 interface Constructable<T> {
-  new(...args: any): T;
+  new (...args: any): T;
 }
 
 export class BaseSubscribe extends LitElement {
@@ -46,7 +44,9 @@ export class BaseSubscribe extends LitElement {
 }
 
 export class BaseComponent<T extends types.DefineSpec> extends BaseSubscribe {
-  $runtime: types.ComponentShortcut<{ [P in keyof T['properties']]: (T['properties'])[P]['default'] }> | null = null;
+  $runtime: types.ComponentShortcut<
+    { [P in keyof T['properties']]: T['properties'][P]['default'] }
+  > | null = null;
 
   static spec: types.Spec | null = null;
 
@@ -59,10 +59,14 @@ export class BaseComponent<T extends types.DefineSpec> extends BaseSubscribe {
     const initializeEvents: Record<string, types.ComponentEvent> = {};
     Object.entries(spec.properties).forEach(([key, prop]) => {
       if (!prop.has.value && this.getAttribute(key)) {
-        console.warn(`${this.tagName}: Property "${key}" is not defined, but attribute is provided.`);
+        console.warn(
+          `${this.tagName}: Property "${key}" is not defined, but attribute is provided.`,
+        );
       }
       if (!prop.has.func && this.getAttribute(`:${key}`)) {
-        console.warn(`${this.tagName}: Property ":${key}" is not defined, but attribute is provided.`);
+        console.warn(
+          `${this.tagName}: Property ":${key}" is not defined, but attribute is provided.`,
+        );
       }
       initializeProperties[key] = {
         name: key,
@@ -76,10 +80,12 @@ export class BaseComponent<T extends types.DefineSpec> extends BaseSubscribe {
         func: this.getAttribute(`:${evt.attribute}`) ?? '',
       };
     });
-    const component = provider.dispatch(actions.createComponent(
-      spec.name, initializeProperties, initializeEvents, { scope, name },
-    ));
-    this.$runtime = component as unknown as types.ComponentShortcut<{ [P in keyof T['properties']]: (T['properties'])[P]['default'] }>;
+    const component = provider.dispatch(
+      actions.createComponent(spec.name, initializeProperties, initializeEvents, { scope, name }),
+    );
+    this.$runtime = component as unknown as types.ComponentShortcut<
+      { [P in keyof T['properties']]: T['properties'][P]['default'] }
+    >;
     this.subscribe(this.$runtime.id);
   }
 }
@@ -109,10 +115,10 @@ The wrapper inserts:
       * `on${Prop}Event` with the attribute `:${prop}`
   * static `spec` attribute
 */
-export function withRuntime<
-T extends types.DefineSpec,
-C extends Constructable<BaseComponent<T>>,
-  >(specDefinition: T, additionalProperties: { [key: string]: PropertyDeclaration } = {}) {
+export function withRuntime<T extends types.DefineSpec, C extends Constructable<BaseComponent<T>>>(
+  specDefinition: T,
+  additionalProperties: { [key: string]: PropertyDeclaration } = {},
+) {
   return (ComponentClass: C) => {
     const litProperties = { ...additionalProperties };
 
@@ -122,8 +128,13 @@ C extends Constructable<BaseComponent<T>>,
     Object.entries(spec.properties).forEach(([key, prop]) => {
       if (!prop.has.value) {
         Object.defineProperty(ComponentClass.prototype, key, {
-          get() { console.warn(`Property "${key}" is not defined for "${specDefinition.name}".`); return undefined; },
-          set() { console.warn(`Property "${key}" is not defined for "${specDefinition.name}".`); },
+          get() {
+            console.warn(`Property "${key}" is not defined for "${specDefinition.name}".`);
+            return undefined;
+          },
+          set() {
+            console.warn(`Property "${key}" is not defined for "${specDefinition.name}".`);
+          },
         });
         return;
       }
@@ -136,9 +147,9 @@ C extends Constructable<BaseComponent<T>>,
           if (value == null) {
             this.removeAttribute(prop.attribute);
             const prevFunc = this.$runtime?.component.properties[key].func;
-            this.$runtime?.setProperties(
-              { [key]: { value: value ?? prop.default, func: prevFunc } },
-            );
+            this.$runtime?.setProperties({
+              [key]: { value: value ?? prop.default, func: prevFunc },
+            });
           } else {
             this.setAttribute(prop.attribute, String(value));
             this.removeAttribute(`:${prop.attribute}`);
@@ -163,7 +174,9 @@ C extends Constructable<BaseComponent<T>>,
             this.setAttribute(`:${prop.attribute}`, String(value).trim());
           }
           const prevValue = this.$runtime?.component.properties[key].value;
-          this.$runtime?.setProperties({ [key]: { value: prevValue, func: String(value ?? '').trim() } });
+          this.$runtime?.setProperties({
+            [key]: { value: prevValue, func: String(value ?? '').trim() },
+          });
         },
       });
     });
@@ -190,17 +203,23 @@ C extends Constructable<BaseComponent<T>>,
     });
 
     Object.defineProperty(ComponentClass, 'properties', {
-      get() { return litProperties; },
+      get() {
+        return litProperties;
+      },
     });
 
     Object.defineProperty(ComponentClass, 'spec', {
-      get() { return spec; },
+      get() {
+        return spec;
+      },
     });
   };
 }
 
 export function onBindChange(
-  updated: PropertyValues, component: BaseComponent<any>, eventKey?: string,
+  updated: PropertyValues,
+  component: BaseComponent<any>,
+  eventKey?: string,
 ) {
   if (!updated.has('bind')) return;
   const { bind } = component as any;
