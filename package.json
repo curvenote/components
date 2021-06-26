@@ -39,7 +39,7 @@
     "prepublishOnly": "yarn run clean; yarn run build;"
   },
   "dependencies": {
-    "@curvenote/runtime": "^0.2.7",
+    "@curvenote/runtime": "^0.2.8",
     "d3-drag": "^3.0.0",
     "d3-format": "^3.0.1",
     "d3-selection": "^3.0.0",
