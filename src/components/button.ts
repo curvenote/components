@@ -40,6 +40,8 @@ class Button extends BaseComponent<typeof ButtonSpec> {
       button {
         cursor: pointer;
         padding: 5px;
+        white-space: normal;
+        user-select: none;
       }
       button.dense {
         padding: 0px;

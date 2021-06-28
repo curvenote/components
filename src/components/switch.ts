@@ -23,12 +23,15 @@ class Switch extends BaseComponent<typeof SwitchSpec> {
 
   static get styles() {
     return css`
+      :host {
+        white-space: normal;
+        user-select: none;
+      }
       .switch {
         position: relative;
         display: inline-block;
-        top: -3px;
-        width: 40px;
-        height: 24px;
+        width: 36px;
+        height: 22px;
       }
       input {
         opacity: 0;
@@ -49,8 +52,8 @@ class Switch extends BaseComponent<typeof SwitchSpec> {
       .slider:before {
         position: absolute;
         content: '';
-        height: 16px;
-        width: 16px;
+        height: 14px;
+        width: 14px;
         left: 4px;
         bottom: 4px;
         background-color: white;
@@ -67,7 +70,7 @@ class Switch extends BaseComponent<typeof SwitchSpec> {
         box-shadow: 0 0 3px var(--mdc-theme-secondary);
       }
       input:checked + .slider:before {
-        transform: translateX(16px);
+        transform: translateX(14px);
       }
       .label {
         cursor: pointer;
