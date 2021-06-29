@@ -32,6 +32,7 @@ class Switch extends BaseComponent<typeof SwitchSpec> {
         display: inline-block;
         width: 36px;
         height: 22px;
+        top: 3px;
       }
       input {
         opacity: 0;
