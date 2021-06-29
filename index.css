@@ -1,6 +1,6 @@
 body {
-  --mdc-theme-primary: #e99f4b;
-  --mdc-theme-secondary: #46f;
+  --theme-primary: #e99f4b;
+  --theme-secondary: #46f;
 }
 article {
   margin: auto;

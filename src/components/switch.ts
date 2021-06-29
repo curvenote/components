@@ -61,13 +61,13 @@ class Switch extends BaseComponent<typeof SwitchSpec> {
         border-radius: 50%;
       }
       input:checked + .slider {
-        background-color: var(--mdc-theme-secondary);
+        background-color: var(--theme-secondary, #46f);
       }
       .switch:hover .slider {
         filter: brightness(90%);
       }
       input:focus + .slider {
-        box-shadow: 0 0 3px var(--mdc-theme-secondary);
+        box-shadow: 0 0 3px var(--theme-secondary, #46f);
       }
       input:checked + .slider:before {
         transform: translateX(14px);

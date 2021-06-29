@@ -9,13 +9,13 @@ r-var {
   user-select: none;
 }
 r-dynamic {
-  color: var(--mdc-theme-secondary, #46f);
-  border-bottom: 1px dashed var(--mdc-theme-secondary, #46f);
+  color: var(--theme-secondary, #46f);
+  border-bottom: 1px dashed var(--theme-secondary, #46f);
 }
 r-action {
   cursor: pointer;
-  color: var(--mdc-theme-secondary, #46f);
-  border-bottom: 1px solid var(--mdc-theme-secondary, #46f);
+  color: var(--theme-secondary, #46f);
+  border-bottom: 1px solid var(--theme-secondary, #46f);
 }
 r-action.noclick {
   cursor: unset;
