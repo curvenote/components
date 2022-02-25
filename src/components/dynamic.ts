@@ -127,7 +127,8 @@ class Dynamic extends BaseComponent<typeof DynamicSpec> {
       }
       .help {
         left: calc(50% - 13px);
-        top: -1.1em;
+        top: -5px;
+        line-height: 9px;
         position: absolute;
         display: none;
         user-select: none;
