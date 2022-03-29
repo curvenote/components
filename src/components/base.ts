@@ -44,9 +44,9 @@ export class BaseSubscribe extends LitElement {
 }
 
 export class BaseComponent<T extends types.DefineSpec> extends BaseSubscribe {
-  $runtime: types.ComponentShortcut<
-    { [P in keyof T['properties']]: T['properties'][P]['default'] }
-  > | null = null;
+  $runtime: types.ComponentShortcut<{
+    [P in keyof T['properties']]: T['properties'][P]['default'];
+  }> | null = null;
 
   static spec: types.Spec | null = null;
 
@@ -83,9 +83,9 @@ export class BaseComponent<T extends types.DefineSpec> extends BaseSubscribe {
     const component = provider.dispatch(
       actions.createComponent(spec.name, initializeProperties, initializeEvents, { scope, name }),
     );
-    this.$runtime = component as unknown as types.ComponentShortcut<
-      { [P in keyof T['properties']]: T['properties'][P]['default'] }
-    >;
+    this.$runtime = component as unknown as types.ComponentShortcut<{
+      [P in keyof T['properties']]: T['properties'][P]['default'];
+    }>;
     this.subscribe(this.$runtime.id);
   }
 }
