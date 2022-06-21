@@ -12,17 +12,21 @@ import Select from './select';
 import Input from './input';
 import Visible from './visible';
 
-export function registerComponent(name: string, component: any) {
-  provider.dispatch(
-    actions.createSpec(component.spec!.name, component.spec!.properties, component.spec!.events),
-  );
+function defineComponent(name: string, component: any) {
   if (customElements.get(name)) return;
   customElements.define(name, component);
 }
 
+export function registerComponent(name: string, component: any) {
+  provider.dispatch(
+    actions.createSpec(component.spec!.name, component.spec!.properties, component.spec!.events),
+  );
+  defineComponent(name, component);
+}
+
 export const register = (store: types.Store) => {
   setup(store);
-  registerComponent('r-var', Variable);
+  defineComponent('r-var', Variable);
   registerComponent('r-display', Display);
   registerComponent('r-dynamic', Dynamic);
   registerComponent('r-range', Range);
