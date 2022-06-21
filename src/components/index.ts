@@ -16,12 +16,13 @@ export function registerComponent(name: string, component: any) {
   provider.dispatch(
     actions.createSpec(component.spec!.name, component.spec!.properties, component.spec!.events),
   );
+  if (customElements.get(name)) return;
   customElements.define(name, component);
 }
 
 export const register = (store: types.Store) => {
   setup(store);
-  customElements.define('r-var', Variable);
+  registerComponent('r-var', Variable);
   registerComponent('r-display', Display);
   registerComponent('r-dynamic', Dynamic);
   registerComponent('r-range', Range);
